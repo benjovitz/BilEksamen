@@ -9,13 +9,15 @@ public class Costumer {
   private String lastName;
   private String email;
   private String phone;
+  private String enterpriseName;
 
-  public Costumer(int costumerID, String firstName, String lastName, String email, String phone) {
+  public Costumer(int costumerID, String firstName, String lastName, String email, String phone, String enterpriseName) {
     this.costumerID = costumerID;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.phone = phone;
+    this.enterpriseName = enterpriseName;
   }
 
   public int getCostumerID() {
@@ -26,31 +28,29 @@ public class Costumer {
     this.costumerID = costumerID;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public String getEnterpriseName() {
+    return enterpriseName;
   }
 
-  public Costumer(String firstName, String lastName, String email, String phone) {
+  public void setEnterpriseName(String enterpriseName) {
+    this.enterpriseName = enterpriseName;
+  }
+
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.phone = phone;
   }
 
   public String getFirstName() {
     return firstName;
   }
 
-  public void setFullName(String fullName) {
-    this.firstName = fullName;
-  }
 
   public String getLastName() {
-    return firstName;
+    return lastName;
   }
 
-  public void setLastName(String fullName) {
-    this.firstName = fullName;
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getEmail() {

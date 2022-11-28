@@ -31,7 +31,7 @@ public class CarController {
 
   @PostMapping("/create-lease")
   public String postCreateLease(@RequestParam("costumer_first_name") String firstName, @RequestParam("costumer_last_name") String lastName, @RequestParam("costumer_email") String email, @RequestParam("costumer_phone") String phone, @RequestParam("lease_start") String leaseStart, @RequestParam("lease_end") String leaseEnd, HttpSession session) {
-    Costumer costumer = new Costumer(1, firstName, lastName, email, phone);
+    Costumer costumer = new Costumer(0, firstName, lastName, email, phone, null);
     session.setAttribute("costumer", costumer);
     session.setAttribute("leaseStart", leaseStart);
     session.setAttribute("leaseEnd", leaseEnd);
@@ -44,7 +44,9 @@ public class CarController {
   public String createList(Model carModel, HttpSession session) {
     Costumer costumer = (Costumer) session.getAttribute("costumer");
     carService.getCarRepository().createCostumer(costumer);
-    carModel.addAttribute(costumer);
+    Costumer costumerWithID = carService.getCarRepository().getCostumers().get(carService.getCarRepository().getCostumers().size()-1);
+    session.setAttribute("costumer", costumerWithID);
+    carModel.addAttribute(costumerWithID);
     carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
     return "car-list";
   }
