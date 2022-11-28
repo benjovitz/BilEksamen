@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+</head>
+<body>
+
+<!-- Udsrkiver først oplysninger om kunden, og derefter en liste af de biler i flåden, som ikke er udlejede. Disse er gjort klikbare, så man blot trykker på den bil, som skal lejs ud. -->
+<!-- Lasse Dall Mikkelsen -->
+
+<div th:text="${costumer.toString()}">Costumer</div>
+
+<tr th:each="car : ${fleet}">
+    <div th:if="${car.available}">
+        <td th:text="${car.brand}">Brand</td>
+        <td th:text="${car.value}">Value</td>
+        <td th:text="${car.pricePerMonth}">Leasing price</td>
+        <td><a th:href="@{'/new-lease/' + ${car.carID}}">Choose</a></td>
+    </div>
+</tr>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+</head>
+<body>
+
+<!-- En form action, som  gør det muligt at indtaste oplysninger om kunde og og lease-periode -->
+<!-- Lasse Dall Mikkelsen -->
+
+<form action="/create-lease" method="post">
+    <label for="costumer_first_name">Costumers first name:</label>
+    <input type="text" id="costumer_first_name" name="costumer_first_name">
+    <label for="costumer_last_name">Costumers last name:</label>
+    <input type="text" id="costumer_last_name" name="costumer_last_name">
+    <label for="costumer_email">Costumers email:</label>
+    <input type="text" id="costumer_email" name="costumer_email">
+    <label for="costumer_phone">Costumers phone number:</label>
+    <input type="text" id="costumer_phone" name="costumer_phone">
+    <label for="lease_start">Start of lease (dd-mm-yyyy):</label>
+    <input type="text" id="lease_start" name="lease_start">
+    <label for="lease_end">End of lease (dd-mm-yyyy):</label>
+    <input type="text" id="lease_end" name="lease_end">
+    <input  type="submit">
+</form>
+
+</body>
+</html>
