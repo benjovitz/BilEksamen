@@ -21,6 +21,7 @@ public class CarRepository {
   //Lasse Dall Mikkelsen
   ArrayList<Car> fleet;
   ArrayList<Lease> leases;
+  ArrayList<Costumer> costumers;
 
   public CarRepository() {
     fleet = new ArrayList<>();
@@ -46,7 +47,7 @@ public class CarRepository {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
-      String sql = "USE fleetdatabase; INSERT INTO lease VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+      String sql = "INSERT INTO lease VALUES (DEFAULT,?,?,?,?,?)";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, lease.getLeaseStart());
@@ -70,14 +71,13 @@ public class CarRepository {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
-      String sql = "USE fleetdatabase; INSERT INTO costumer VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+      String sql = "INSERT INTO customer VALUES (DEFAULT,?,?,?,?,null)";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, costumer.getFirstName());
       preparedStatement.setString(2, costumer.getLastName());
       preparedStatement.setString(3, costumer.getPhone());
       preparedStatement.setString(4, costumer.getEmail());
-      preparedStatement.setString(5, null);
 
       preparedStatement.executeUpdate();
 
