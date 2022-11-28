@@ -1,7 +1,7 @@
-package com.example.bilabonnement.service;
+package com.example.bileksamen.service;
 
-import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.repository.CarRepository;
+import com.example.bileksamen.model.Car;
+import com.example.bileksamen.repository.CarRepository;
 
 public class CarService {
 

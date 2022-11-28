@@ -1,10 +1,10 @@
-package com.example.bilabonnement.controller;
+package com.example.bileksamen.controller;
 
-import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.Costumer;
-import com.example.bilabonnement.model.Lease;
-import com.example.bilabonnement.repository.CarRepository;
-import com.example.bilabonnement.service.CarService;
+import com.example.bileksamen.model.Car;
+import com.example.bileksamen.model.Costumer;
+import com.example.bileksamen.model.Lease;
+import com.example.bileksamen.repository.CarRepository;
+import com.example.bileksamen.service.CarService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;

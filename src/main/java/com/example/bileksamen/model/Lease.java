@@ -1,16 +1,16 @@
-package com.example.bilabonnement.model;
+package com.example.bileksamen.model;
 
 //Opretter klassen "Lease" med attributter, constructor, getters og setters
 //Lasse Dall Mikkelsen
 public class Lease {
 
   private int leaseID;
-  private com.example.bilabonnement.model.Car car;
-  private com.example.bilabonnement.model.Costumer costumer;
+  private com.example.bileksamen.model.Car car;
+  private com.example.bileksamen.model.Costumer costumer;
   private String leaseStart;
   private String leaseEnd;
 
-  public Lease(int leaseID, com.example.bilabonnement.model.Car car, com.example.bilabonnement.model.Costumer costumer, String leaseStart, String leaseEnd) {
+  public Lease(int leaseID, Car car, Costumer costumer, String leaseStart, String leaseEnd) {
     this.leaseID = leaseID;
     this.leaseStart = leaseStart;
     this.leaseEnd = leaseEnd;
@@ -18,7 +18,7 @@ public class Lease {
     this.costumer = costumer;
   }
 
-  public Lease(com.example.bilabonnement.model.Car car, com.example.bilabonnement.model.Costumer costumer, String leaseStart, String leaseEnd) {
+  public Lease(Car car, Costumer costumer, String leaseStart, String leaseEnd) {
     this.leaseStart = leaseStart;
     this.leaseEnd = leaseEnd;
     this.car = car;
@@ -49,19 +49,19 @@ public class Lease {
     this.leaseEnd = leaseEnd;
   }
 
-  public com.example.bilabonnement.model.Car getCar() {
+  public Car getCar() {
     return car;
   }
 
-  public void setCar(com.example.bilabonnement.model.Car car) {
+  public void setCar(Car car) {
     this.car = car;
   }
 
-  public com.example.bilabonnement.model.Costumer getCostumer() {
+  public Costumer getCostumer() {
     return costumer;
   }
 
-  public void setCostumer(com.example.bilabonnement.model.Costumer costumer) {
+  public void setCostumer(Costumer costumer) {
     this.costumer = costumer;
   }
 

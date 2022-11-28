@@ -1,8 +1,9 @@
-package com.example.bilabonnement.repository;
+package com.example.bileksamen.repository;
 
-import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.Lease;
-import com.example.bilabonnement.util.ConnectionManager;
+import com.example.bileksamen.model.Car;
+import com.example.bileksamen.model.Lease;
+import com.example.bileksamen.model.Costumer;
+import com.example.bileksamen.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 
 @Repository
 public class CarRepository {
@@ -61,6 +63,26 @@ public class CarRepository {
 
   }
 
+  //Opretter en costumer i databasen
+  //Lasse Dall Mikkelsen
+  public void createCostumer(Costumer costumer) {
 
+    try {
 
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+      String sql = "USE fleetdatabase; INSERT INTO costumer VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, costumer.getFirstName());
+      preparedStatement.setString(2, costumer.getLastName());
+      preparedStatement.setString(3, costumer.getPhone());
+      preparedStatement.setString(4, costumer.getEmail());
+      preparedStatement.setString(5, null);
+
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+  }
 }

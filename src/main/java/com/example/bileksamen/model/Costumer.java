@@ -1,4 +1,4 @@
-package com.example.bilabonnement.model;
+package com.example.bileksamen.model;
 
 //Opretter klassen "Costumer" med attributter, constructor, getters og setters
 //Lasse Dall Mikkelsen

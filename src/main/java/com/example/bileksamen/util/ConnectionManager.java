@@ -1,4 +1,4 @@
-package com.example.bilabonnement.util;
+package com.example.bileksamen.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
