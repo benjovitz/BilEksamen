@@ -85,14 +85,14 @@ public class CarRepository {
 
   //Metode til at fjerne bil fra fleetdatabasen når den er solgt.
   //Oscar Storm
-  public void RemoveCar(Car carID) {
+  public void RemoveCar(Car car) {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
       String sql = "USE fleetdatabase; DELETE FROM fleet WHERE carId=?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-      preparedStatement.setInt(1,carID.getCarID());
+      preparedStatement.setInt(1,car.getCarID());
 
       preparedStatement.executeUpdate();
 
@@ -102,7 +102,7 @@ public class CarRepository {
   }
   //Finder værdien af bilen.
   //Oscar Storm
-  public void sellCar(Car carID){
+  public void sellCar(Car car){
 
     try {
 
@@ -110,7 +110,7 @@ public class CarRepository {
       String sql = "USE flletdatabase; SELECT price sales WHERE carID=? ";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-      preparedStatement.setInt(1,carID.getCarID());
+      preparedStatement.setInt(1,car.getCarID());
       preparedStatement.executeUpdate();
 
 
