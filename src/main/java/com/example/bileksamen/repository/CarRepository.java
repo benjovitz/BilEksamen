@@ -107,7 +107,7 @@ public class CarRepository {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
-      String sql = "USE flletdatabase; SELECT price sales WHERE carID=? ";
+      String sql = "USE flletdatabase; SELECT price FROM sales WHERE carID=? ";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
       preparedStatement.setInt(1,car.getCarID());
