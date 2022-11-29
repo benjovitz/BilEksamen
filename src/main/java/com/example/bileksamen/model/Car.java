@@ -5,15 +5,17 @@ package com.example.bileksamen.model;
 public class Car {
 
   private int carID;
+  private String description;
   private String brand;
-  private int value;
+  private int originalPrice;
   private int pricePerMonth;
   private boolean available;
 
-  public Car(int carID, String brand, int value, int pricePerMonth, boolean available) {
+  public Car(int carID, String description, String brand, int originalPrice, int pricePerMonth, boolean available) {
     this.carID = carID;
+    this.description = description;
     this.brand = brand;
-    this.value = value;
+    this.originalPrice = originalPrice;
     this.pricePerMonth = pricePerMonth;
     this.available = available;
   }
@@ -34,14 +36,6 @@ public class Car {
     this.brand = brand;
   }
 
-  public int getValue() {
-    return value;
-  }
-
-  public void setValue(int value) {
-    this.value = value;
-  }
-
   public int getPricePerMonth() {
     return pricePerMonth;
   }
@@ -58,12 +52,29 @@ public class Car {
     this.available = available;
   }
 
+  public int getOriginalPrice() {
+    return originalPrice;
+  }
+
+  public void setOriginalPrice(int originalPrice) {
+    this.originalPrice = originalPrice;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   @Override
   public String toString() {
     return "Car{" +
         "carID=" + carID +
+        ", description='" + description + '\'' +
         ", brand='" + brand + '\'' +
-        ", value=" + value +
+        ", originalPrice=" + originalPrice +
         ", pricePerMonth=" + pricePerMonth +
         ", available=" + available +
         '}';

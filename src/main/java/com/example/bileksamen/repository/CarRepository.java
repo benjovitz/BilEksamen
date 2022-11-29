@@ -4,10 +4,10 @@ import com.example.bileksamen.model.Car;
 import com.example.bileksamen.model.Lease;
 import com.example.bileksamen.model.Costumer;
 import com.example.bileksamen.util.ConnectionManager;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -21,10 +21,9 @@ public class CarRepository {
   ArrayList<Costumer> costumers;
 
   public CarRepository() {
-    fleet = new ArrayList<>();
-    fleet.add(new Car(1, "BMW", 200000, 10000, true));
-    leases = new ArrayList<>();
+    fleet = getDBFleet();
     costumers = getDBCostumers();
+    leases = getDBLeases();
   }
 
 
@@ -62,6 +61,7 @@ public class CarRepository {
   //Lasse Dall Mikkelsen
   public ArrayList<Costumer> getDBCostumers() {
     ArrayList<Costumer> costumers = new ArrayList<>();
+
     try {
       Connection connection = ConnectionManager.getConnection(url, username, password);
 
@@ -82,8 +82,64 @@ public class CarRepository {
       System.out.println("Connection to database failed");
       sqle.printStackTrace();
     }
-    System.out.println(costumers);
     return costumers;
+  }
+
+  //Returnerer en liste af alle biler i flåden fra databasen
+  //Lasse Dall Mikkelsen
+  public ArrayList<Car> getDBFleet() {
+    ArrayList<Car> cars = new ArrayList<>();
+
+    try {
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM fleet");
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        int carID = resultSet.getInt(1);
+        String description = resultSet.getString(2);
+        int originalPrice = resultSet.getInt(3);
+        String brand = resultSet.getString(4);
+        int pricePerMonth = resultSet.getInt(5);
+        boolean available = resultSet.getBoolean(6);
+
+        cars.add(new Car(carID, description, brand, originalPrice, pricePerMonth, available));
+      }
+
+    } catch (SQLException sqle) {
+      System.out.println("Connection to database failed");
+      sqle.printStackTrace();
+    }
+    return cars;
+  }
+
+  //Returnerer en liste af alle leases fra databasen
+  //Lasse Dall Mikkelsen
+  public ArrayList<Lease> getDBLeases() {
+    ArrayList<Lease> leases = new ArrayList<>();
+
+    try {
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM lease");
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        int leaseID = resultSet.getInt(1);
+        LocalDate leaseStart = stringToLocalDate(resultSet.getString(2));
+        int pricePerMonth = resultSet.getInt(3);
+        int carID = resultSet.getInt(4);
+        int costumerID = resultSet.getInt(5);
+        LocalDate leaseEnd = stringToLocalDate(resultSet.getString(6));
+        leases.add(new Lease(leaseID, pricePerMonth, findCarByID(carID), findCostumerByID(costumerID), leaseStart, leaseEnd));
+      }
+
+    } catch (SQLException sqle) {
+      System.out.println("Connection to database failed");
+      sqle.printStackTrace();
+    }
+    return leases;
   }
 
   //Opretter et lease i databasen
@@ -96,11 +152,11 @@ public class CarRepository {
       String sql = "INSERT INTO lease VALUES (DEFAULT,?,?,?,?,?)";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
-      preparedStatement.setString(1, lease.getLeaseStart());
+      preparedStatement.setString(1, String.valueOf(lease.getLeaseStart()));
       preparedStatement.setInt(2, lease.getCar().getPricePerMonth());
       preparedStatement.setInt(3, lease.getCar().getCarID());
       preparedStatement.setInt(4, lease.getCostumer().getCostumerID());
-      preparedStatement.setString(5, lease.getLeaseEnd());
+      preparedStatement.setString(5, String.valueOf(lease.getLeaseEnd()));
 
       preparedStatement.executeUpdate();
 
@@ -152,7 +208,7 @@ public class CarRepository {
   }
   //Finder værdien af bilen.
   //Oscar Storm
-  public void sellCar(Car car){
+  public void sellCar(Car car) {
 
     try {
 
@@ -167,12 +223,36 @@ public class CarRepository {
     }catch (SQLException sqle){
       sqle.printStackTrace();
     }
-
   }
 
+  //Returnere en bil ud fra carID
+  //Lasse Dall Mikkelsen
+  public Car findCarByID(int carID) {
+    for (Car car: fleet) {
+      if (car.getCarID() == carID) {
+        return car;
+      }
+    }
+    return null;
+  }
 
+  //Returnere en kunde ud fra costumerID
+  //Lasse Dall Mikkelsen
+  public Costumer findCostumerByID(int costumerID) {
+    for (Costumer costumer: costumers) {
+      if (costumer.getCostumerID() == costumerID) {
+        return costumer;
+      }
+    }
+    return null;
+  }
 
-
-
-
+  //Tager en String (yyyy-mm-dd) og laver den til et LocalDate objekt
+  //Lasse Dall Mikkelsen
+  public LocalDate stringToLocalDate(String date) {
+    int year = Integer.parseInt(date.substring(0,4));
+    int month = Integer.parseInt(date.substring(5,7));
+    int day = Integer.parseInt(date.substring(8));
+    return LocalDate.of(year, month, day);
+  }
 }

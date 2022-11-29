@@ -3,7 +3,6 @@ package com.example.bileksamen.controller;
 import com.example.bileksamen.model.Car;
 import com.example.bileksamen.model.Costumer;
 import com.example.bileksamen.model.Lease;
-import com.example.bileksamen.repository.CarRepository;
 import com.example.bileksamen.service.CarService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ClassPathResource;
@@ -33,6 +32,7 @@ public class CarController {
   public String postCreateLease(@RequestParam("costumer_first_name") String firstName, @RequestParam("costumer_last_name") String lastName, @RequestParam("costumer_email") String email, @RequestParam("costumer_phone") String phone, @RequestParam("lease_start") String leaseStart, @RequestParam("lease_end") String leaseEnd, HttpSession session) {
     Costumer costumer = new Costumer(0, firstName, lastName, email, phone, null);
     session.setAttribute("costumer", costumer);
+    System.out.println(leaseStart);
     session.setAttribute("leaseStart", leaseStart);
     session.setAttribute("leaseEnd", leaseEnd);
     return "redirect:/car-list";
@@ -55,7 +55,7 @@ public class CarController {
   //Lasse Dall Mikkelsen
   @GetMapping("/new-lease/{carID}")
   public String newLease(HttpSession session, @PathVariable("carID") int carID) {
-    Car car = carService.findCarByID(carID);
+    Car car = carService.getCarRepository().findCarByID(carID);
     Costumer costumer = (Costumer) session.getAttribute("costumer");
     Lease lease = new Lease(car, costumer, (String) session.getAttribute("leaseStart"), (String) session.getAttribute("leaseEnd"));
     carService.getCarRepository().createLease(lease);
