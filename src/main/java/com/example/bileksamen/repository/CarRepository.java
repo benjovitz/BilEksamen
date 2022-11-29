@@ -7,10 +7,7 @@ import com.example.bileksamen.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -85,4 +82,46 @@ public class CarRepository {
       sqle.printStackTrace();
     }
   }
+
+  //Metode til at fjerne bil fra fleetdatabasen når den er solgt.
+  //Oscar Storm
+  public void RemoveCar(int carID) {
+    try {
+
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+      String sql = "USE fleetdatabase; DELETE FROM fleet WHERE carId=?";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      preparedStatement.setInt(1,carID);
+
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+  }
+  //Finder værdien af bilen.
+  //Oscar Storm
+  public void sellCar(int carID){
+
+    try {
+
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+      String sql = "USE flletdatabase; SELECT price sales WHERE carID=? ";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      preparedStatement.setInt(1,carID);
+      preparedStatement.executeUpdate();
+
+    }catch (SQLException sqle){
+      sqle.printStackTrace();
+    }
+
+  }
+
+
+
+
+
+
 }
