@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flåde</title>
+</head>
+<body>
+<tr th:each="car : ${fleet}">
+  <div th:if="${car.available}">
+    <td th:text="${car.brand}">Brand</td>
+    <td th:text="${car.value}">Value</td>
+    <td th:text="${car.pricePerMonth}">Leasing price</td>
+    <td><a th:href="@{/add-car(id=${car.getCarID})}">Choose</a></td>
+  </div>
+</tr>
+</body>
+</html>
