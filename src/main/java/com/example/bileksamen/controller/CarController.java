@@ -1,8 +1,6 @@
 package com.example.bileksamen.controller;
 
-import com.example.bileksamen.model.Car;
-import com.example.bileksamen.model.Costumer;
-import com.example.bileksamen.model.Lease;
+import com.example.bileksamen.model.*;
 import com.example.bileksamen.service.CarService;
 import com.example.bileksamen.service.DriverService;
 import com.example.bileksamen.service.PickupService;
@@ -63,7 +61,7 @@ public class CarController {
   public String newLease(HttpSession session, @PathVariable("carID") int carID) {
     Car car = carService.getCarRepository().findCarByID(carID);
     Costumer costumer = (Costumer) session.getAttribute("costumer");
-    Lease lease = new Lease(car, costumer, (String) session.getAttribute("leaseStart"), (String) session.getAttribute("leaseEnd"));
+    Lease lease = new Lease(car, costumer, carService.getCarRepository().stringToLocalDate((String) session.getAttribute("leaseStart")), carService.getCarRepository().stringToLocalDate((String) session.getAttribute("leaseEnd")));
     carService.getCarRepository().createLease(lease);
     return "create-lease";
   }
@@ -106,7 +104,7 @@ public class CarController {
   //Daniel Benjovitz
   @GetMapping("/add-car")
   public String addCar(@RequestParam int id, HttpSession session){
-    session.setAttribute("car",carService.findCarByID(id));
+    session.setAttribute("car",carService.getCarRepository().findCarByID(id));
     return "redirect:/fleet";
   }
   //Daniel Benjovitz
