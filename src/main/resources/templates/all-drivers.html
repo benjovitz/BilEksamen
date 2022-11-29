@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alle vognmænd</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>fornavn</th>
+        <th>efternavn</th>
+    </tr>
+    <tr th:each="d : ${drivers}">
+        <td th:text="${d.driverID}"></td>
+        <td th:text="${d.firstName}"></td>
+        <td th:text="${d.lastName}"></td>
+        <td><a th:href="@{/add-driver(id=${d.getDriverID})}">Tilføj vognmand</a> </td>
+    </tr>
+</table>
+</body>
+</html>

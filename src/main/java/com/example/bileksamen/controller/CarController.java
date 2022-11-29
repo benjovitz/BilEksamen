@@ -4,6 +4,8 @@ import com.example.bileksamen.model.Car;
 import com.example.bileksamen.model.Costumer;
 import com.example.bileksamen.model.Lease;
 import com.example.bileksamen.service.CarService;
+import com.example.bileksamen.service.DriverService;
+import com.example.bileksamen.service.PickupService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -14,11 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+
 
 @Controller
 public class CarController {
 
   private CarService carService = new CarService();
+  private DriverService driverService = new DriverService();
+  private PickupService pickupService = new PickupService();
+
 
 
   //Get og post mapping for create-lease, hvor de indtastede parametre i post bliver redirectet og en HttpSession gemmer parametrene i en cookie
@@ -32,7 +39,6 @@ public class CarController {
   public String postCreateLease(@RequestParam("costumer_first_name") String firstName, @RequestParam("costumer_last_name") String lastName, @RequestParam("costumer_email") String email, @RequestParam("costumer_phone") String phone, @RequestParam("lease_start") String leaseStart, @RequestParam("lease_end") String leaseEnd, HttpSession session) {
     Costumer costumer = new Costumer(0, firstName, lastName, email, phone, null);
     session.setAttribute("costumer", costumer);
-    System.out.println(leaseStart);
     session.setAttribute("leaseStart", leaseStart);
     session.setAttribute("leaseEnd", leaseEnd);
     return "redirect:/car-list";
@@ -61,7 +67,66 @@ public class CarController {
     carService.getCarRepository().createLease(lease);
     return "create-lease";
   }
+//vælger bil og vælger hvad der skal ske med den, bil i session
+//Daniel Benjovitz
+  @GetMapping("/create-driver")
+  public String createDriver(){
+    return "create-driver";
+  }
+  //Daniel Benjovitz
+  @PostMapping("/create-driver")
+  public String postCreateDriver(@RequestParam("driver_first_name") String firstName, @RequestParam("driver_last_name") String lastName,RedirectAttributes redirectAttributes){
+    redirectAttributes.addAttribute("firstName",firstName);
+    redirectAttributes.addAttribute("lastName",lastName);
+     driverService.getDriverRepository().createDriver(new Driver(firstName,lastName));
+    return "redirect:/create-driver";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/all-drivers")
+  //if statement, måske proppe det i en session istedet for
+  public String getAllDrivers(Model model){
+    driverService.getDriverRepository().getAllDrivers();
+    ArrayList<Driver> drivers = driverService.getDriverRepository().getDrivers();
+    model.addAttribute("drivers",drivers);
+    return "all-drivers";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/add-driver")
+  public String addDriverToSession(HttpSession session, @RequestParam int id){
+  session.setAttribute("driver",driverService.getDriverByID(id));
+    System.out.println(session.getAttribute("driver"));
+  return "redirect:/all-drivers";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/fleet")
+  public String fleet(HttpSession session, Model carModel){
+    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
+    return "fleet";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/add-car")
+  public String addCar(@RequestParam int id, HttpSession session){
+    session.setAttribute("car",carService.findCarByID(id));
+    return "redirect:/fleet";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/create-pickup")
+  public String createPickup(){
+    return "create-pickup";
+  }
+  //Daniel Benjovitz
+  @PostMapping("/create-pickup")
+  public String postCreatePickup(@RequestParam String location, @RequestParam String date, RedirectAttributes redirectAttributes, HttpSession session){
+    redirectAttributes.addAttribute("location",location);
+    redirectAttributes.addAttribute("date",date);
+    Car car = (Car) session.getAttribute("car");
+    int carID = car.getCarID();
 
-
+    Driver driver = (Driver) session.getAttribute("driver");
+    int driverID = driver.getDriverID();
+    Pickup pickup = new Pickup(carID,location,date,driverID);
+    pickupService.getPickupRepositoy().createPickup(pickup);
+    return "redirect:/fleet";
+  }
 }
 
