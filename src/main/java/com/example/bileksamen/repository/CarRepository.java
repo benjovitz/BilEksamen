@@ -132,4 +132,47 @@ public class CarRepository {
       sqle.printStackTrace();
     }
   }
+
+  //Metode til at fjerne bil fra fleetdatabasen når den er solgt.
+  //Oscar Storm
+  public void RemoveCar(Car car) {
+    try {
+
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+      String sql = "USE fleetdatabase; DELETE FROM fleet WHERE carId=?";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      preparedStatement.setInt(1,car.getCarID());
+
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+  }
+  //Finder værdien af bilen.
+  //Oscar Storm
+  public void sellCar(Car car){
+
+    try {
+
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+      String sql = "USE flletdatabase; SELECT price FROM sales WHERE carID=? ";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      preparedStatement.setInt(1,car.getCarID());
+      preparedStatement.executeUpdate();
+
+
+    }catch (SQLException sqle){
+      sqle.printStackTrace();
+    }
+
+  }
+
+
+
+
+
+
 }
