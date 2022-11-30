@@ -155,5 +155,25 @@ public class CarController {
     carService.getCarRepository().updateCar(car.getCarID(), brand, description, originalPrice, pricePerMonth);
     return "redirect:/stock";
   }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/delete-car/{carID}")
+  public String deleteCar(@PathVariable("carID") int carID) {
+    carService.getCarRepository().removeCar(carService.getCarRepository().findCarByID(carID));
+    return "stock";
+  }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/create-car")
+  public String createCar() {
+    return "create-car";
+  }
+
+  //Lasse Dall Mikkelsen
+  @PostMapping("/create-car")
+  public String postCreateCar(@RequestParam("brand") String brand, @RequestParam("description") String description, @RequestParam("original_price") int originalPrice, @RequestParam("price_per_month") int pricePerMonth) {
+    carService.getCarRepository().addCar(brand, description, originalPrice, pricePerMonth);
+    return "redirect:/stock";
+  }
 }
 

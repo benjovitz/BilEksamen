@@ -191,14 +191,14 @@ public class CarRepository {
 
   //Metode til at fjerne bil fra fleetdatabasen når den er solgt.
   //Oscar Storm
-  public void RemoveCar(Car car) {
+  public void removeCar(Car car) {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
       String sql = "DELETE FROM fleet WHERE carId=?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-      preparedStatement.setInt(1,car.getCarID());
+      preparedStatement.setInt(1, car.getCarID());
 
       preparedStatement.executeUpdate();
 
@@ -206,6 +206,7 @@ public class CarRepository {
       sqle.printStackTrace();
     }
   }
+
   //Finder værdien af bilen.
   //Oscar Storm
   public void sellCar(Car car) {
@@ -216,11 +217,12 @@ public class CarRepository {
       String sql = "SELECT price FROM sales WHERE carID=? ";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-      preparedStatement.setInt(1,car.getCarID());
+      preparedStatement.setInt(1, car.getCarID());
       preparedStatement.executeUpdate();
 
+      fleet = getDBFleet();
 
-    }catch (SQLException sqle){
+    } catch (SQLException sqle) {
       sqle.printStackTrace();
     }
   }
@@ -228,7 +230,7 @@ public class CarRepository {
   //Returnere en bil ud fra carID
   //Lasse Dall Mikkelsen
   public Car findCarByID(int carID) {
-    for (Car car: fleet) {
+    for (Car car : fleet) {
       if (car.getCarID() == carID) {
         return car;
       }
@@ -239,7 +241,7 @@ public class CarRepository {
   //Returnere en kunde ud fra costumerID
   //Lasse Dall Mikkelsen
   public Costumer findCostumerByID(int costumerID) {
-    for (Costumer costumer: costumers) {
+    for (Costumer costumer : costumers) {
       if (costumer.getCostumerID() == costumerID) {
         return costumer;
       }
@@ -250,8 +252,8 @@ public class CarRepository {
   //Tager en String (yyyy-mm-dd) og laver den til et LocalDate objekt
   //Lasse Dall Mikkelsen
   public LocalDate stringToLocalDate(String date) {
-    int year = Integer.parseInt(date.substring(0,4));
-    int month = Integer.parseInt(date.substring(5,7));
+    int year = Integer.parseInt(date.substring(0, 4));
+    int month = Integer.parseInt(date.substring(5, 7));
     int day = Integer.parseInt(date.substring(8));
     return LocalDate.of(year, month, day);
   }
@@ -273,6 +275,31 @@ public class CarRepository {
       preparedStatement.setInt(5, carID);
 
       preparedStatement.executeUpdate();
+      fleet = getDBFleet();
+
+    } catch (SQLException sqle) {
+      System.out.println("Connection to database failed");
+      sqle.printStackTrace();
+    }
+  }
+
+  //Tilføjer en ny bil til databasen
+  //Lasse Dall Mikkelsen
+  public void addCar(String brand, String description, int originalPrice, int pricePerMonth) {
+
+    try {
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+
+      String sql = "INSERT INTO fleet VALUES (DEFAULT, ?, ?, ?, ?, TRUE)";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      preparedStatement.setString(1, description);
+      preparedStatement.setInt(2, originalPrice);
+      preparedStatement.setString(3, brand);
+      preparedStatement.setInt(4, pricePerMonth);
+
+      preparedStatement.executeUpdate();
+
       fleet = getDBFleet();
 
     } catch (SQLException sqle) {
