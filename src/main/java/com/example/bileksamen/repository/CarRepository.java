@@ -159,11 +159,40 @@ public class CarRepository {
       preparedStatement.setString(5, String.valueOf(lease.getLeaseEnd()));
 
       preparedStatement.executeUpdate();
+      changeAvailability(lease.getCar().getCarID());
+      costumers = getDBCostumers();
+      leases = getDBLeases();
 
     } catch (SQLException sqle) {
       sqle.printStackTrace();
     }
 
+  }
+
+  //Ændre availability i databasen
+  //Lasse Dall Mikkelsen
+  public void changeAvailability(int carID) {
+
+    try {
+
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+      String sql = "UPDATE fleet SET available=? WHERE carID=?";
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      if (findCarByID(carID).isAvailable()) {
+        preparedStatement.setInt(1, 0);
+      } else {
+        preparedStatement.setInt(1, 1);
+      }
+      preparedStatement.setInt(2, carID);
+
+      preparedStatement.executeUpdate();
+      fleet = getDBFleet();
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
   }
 
   //Opretter en costumer i databasen
