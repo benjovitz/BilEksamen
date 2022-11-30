@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+</head>
+<body>
+<h2>Biler på lager: </h2>
+<tr th:each="car : ${fleet}">
+    <div th:if="${car.available}">
+        <td th:text="${car.brand}">Brand</td>
+        <br>
+        <td th:text="${car.description}">Description</td>
+        <br>
+        <td th:text="'Oprindelig pris: ' + ${car.originalPrice}">Value</td>
+        <br>
+        <td th:text="'Pris pr. måned: ' + ${car.pricePerMonth}">Leasing price</td>
+        <td><a th:href="@{'/update-car/' + ${car.carID}}">Update car</a></td>
+        <br> <br>
+    </div>
+</tr>
+<br> <br>
+<h2>Udlejede biler: </h2>
+<tr th:each="car : ${fleet}">
+    <div th:if="${!car.available}">
+        <td th:text="${car.brand}">Brand</td>
+        <br>
+        <td th:text="${car.description}">Description</td>
+        <br>
+        <td th:text="'Oprindelig pris: ' + ${car.originalPrice}">Value</td>
+        <br>
+        <td th:text="'Pris pr. måned: ' + ${car.pricePerMonth}">Leasing price</td>
+        <td><a th:href="@{'/update-car/' + ${car.carID}}">Update car</a></td>
+        <br> <br>
+    </div>
+</tr>
+</body>
+</html>

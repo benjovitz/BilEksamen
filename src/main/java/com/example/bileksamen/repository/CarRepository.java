@@ -255,4 +255,29 @@ public class CarRepository {
     int day = Integer.parseInt(date.substring(8));
     return LocalDate.of(year, month, day);
   }
+
+  //Opdaterer oplysninger på en bil i flåden
+  //Lasse Dall Mikkelsen
+  public void updateCar(int carID, String brand, String description, int originalPrice, int pricePerMonth) {
+
+    try {
+      Connection connection = ConnectionManager.getConnection(url, username, password);
+
+      String sql = "UPDATE fleet SET brand=?, description=?, original_price=?, price_per_month=? WHERE carID=?";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      preparedStatement.setString(1, brand);
+      preparedStatement.setString(2, description);
+      preparedStatement.setInt(3, originalPrice);
+      preparedStatement.setInt(4, pricePerMonth);
+      preparedStatement.setInt(5, carID);
+
+      preparedStatement.executeUpdate();
+      fleet = getDBFleet();
+
+    } catch (SQLException sqle) {
+      System.out.println("Connection to database failed");
+      sqle.printStackTrace();
+    }
+  }
 }

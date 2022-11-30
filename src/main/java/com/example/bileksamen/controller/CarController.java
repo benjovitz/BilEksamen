@@ -79,6 +79,7 @@ public class CarController {
      driverService.getDriverRepository().createDriver(new Driver(firstName,lastName));
     return "redirect:/create-driver";
   }
+
   //Daniel Benjovitz
   @GetMapping("/all-drivers")
   //if statement, måske proppe det i en session istedet for
@@ -88,6 +89,7 @@ public class CarController {
     model.addAttribute("drivers",drivers);
     return "all-drivers";
   }
+
   //Daniel Benjovitz
   @GetMapping("/add-driver")
   public String addDriverToSession(HttpSession session, @RequestParam int id){
@@ -95,18 +97,21 @@ public class CarController {
     System.out.println(session.getAttribute("driver"));
   return "redirect:/all-drivers";
   }
+
   //Daniel Benjovitz
   @GetMapping("/fleet")
   public String fleet(HttpSession session, Model carModel){
     carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
     return "fleet";
   }
+
   //Daniel Benjovitz
   @GetMapping("/add-car")
   public String addCar(@RequestParam int id, HttpSession session){
     session.setAttribute("car",carService.getCarRepository().findCarByID(id));
     return "redirect:/fleet";
   }
+
   //Daniel Benjovitz
   @GetMapping("/create-pickup")
   public String createPickup(){
@@ -125,6 +130,30 @@ public class CarController {
     Pickup pickup = new Pickup(carID,location,date,driverID);
     pickupService.getPickupRepositoy().createPickup(pickup);
     return "redirect:/fleet";
+  }
+
+  //Viser lager af biler
+  //Lasse Dall Mikkelsen
+  @GetMapping("/stock")
+  public String stock(Model carModel){
+    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
+    return "stock";
+  }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/update-car/{carID}")
+  public String updateCar(@PathVariable("carID") int carID, HttpSession session, Model carModel){
+    session.setAttribute("car",carService.getCarRepository().findCarByID(carID));
+    carModel.addAttribute("car", session.getAttribute("car"));
+    return "update-car";
+  }
+
+  //Lasse Dall Mikkelsen
+  @PostMapping("/update-car")
+  public String postUpdateCar(@RequestParam("brand") String brand, @RequestParam("description") String description, @RequestParam("original_price") int originalPrice, @RequestParam("price_per_month") int pricePerMonth, HttpSession session) {
+    Car car = (Car) session.getAttribute("car");
+    carService.getCarRepository().updateCar(car.getCarID(), brand, description, originalPrice, pricePerMonth);
+    return "redirect:/stock";
   }
 }
 

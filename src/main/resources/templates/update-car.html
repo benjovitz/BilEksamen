@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+</head>
+<body>
+
+<form action="/update-car" method="post">
+    <label for="brand" th:text="'Brand (' + ${car.brand} + '):' ">Brand: </label>
+    <input type="text" id="brand" name="brand">
+    <label for="description" th:text="'Description (' + ${car.description} + '):'">Description:</label>
+    <input type="text" id="description" name="description">
+    <label for="original_price" th:text="'Original price (' + ${car.originalPrice} + '):'">Original price:</label>
+    <input type="text" id="original_price" name="original_price">
+    <label for="price_per_month" th:text="'Price pr. month (' + ${car.pricePerMonth} + '):'">Price pr. month:</label>
+    <input type="text" id="price_per_month" name="price_per_month">
+    <button  type="submit">Update car</button>
+</form>
+
+</body>
+</html>
