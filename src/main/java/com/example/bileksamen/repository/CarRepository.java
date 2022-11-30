@@ -195,7 +195,7 @@ public class CarRepository {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
-      String sql = "USE fleetdatabase; DELETE FROM fleet WHERE carId=?";
+      String sql = "DELETE FROM fleet WHERE carId=?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
       preparedStatement.setInt(1,car.getCarID());
@@ -213,7 +213,7 @@ public class CarRepository {
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
-      String sql = "USE flletdatabase; SELECT price FROM sales WHERE carID=? ";
+      String sql = "SELECT price FROM sales WHERE carID=? ";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
       preparedStatement.setInt(1,car.getCarID());

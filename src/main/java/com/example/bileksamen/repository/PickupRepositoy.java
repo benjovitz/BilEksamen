@@ -27,7 +27,7 @@ public class PickupRepositoy {
 
         try{
             Connection connection = ConnectionManager.getConnection(url,username,password);
-            String sql = "insert into pickup VALUES (DEFAULT,?,?,?,?)";
+            String sql = "INSERT INTO pickup VALUES (DEFAULT,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,pickup.getCarID());

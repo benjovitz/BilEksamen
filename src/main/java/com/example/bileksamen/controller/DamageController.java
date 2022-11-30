@@ -13,7 +13,7 @@ public class DamageController {
     DamageRepository damageRepository;
 
     public DamageController(){
-        damageRepository= new DamageRepository();
+        damageRepository = new DamageRepository();
     }
 
     @GetMapping("/damage-report")
