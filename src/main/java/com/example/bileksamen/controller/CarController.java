@@ -175,5 +175,19 @@ public class CarController {
     carService.getCarRepository().addCar(brand, description, originalPrice, pricePerMonth);
     return "redirect:/stock";
   }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/availability")
+  public String avialabilty() {
+    return "availability";
+  }
+
+  //Lasse Dall Mikkelsen
+  @PostMapping("/availability")
+  public String postAvailability(@RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate, Model carModel) {
+    ArrayList<Car> availableCars = carService.getCarRepository().findAvailableCars(startDate, endDate);
+    carModel.addAttribute("availableCars", availableCars);
+    return "available-cars";
+  }
 }
 

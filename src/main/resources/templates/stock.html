@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Bilabonnement.dk</title>
 </head>
+
+<!-- Displayer først ledige biler i flåden og derefter udlejede biler. Man kan ud for hver bil vælge update og delete -->
+<!-- Lasse Dall Mikkelsen -->
+
 <body>
 <h2>Biler på lager: </h2>
 <tr th:each="car : ${fleet}">
@@ -37,6 +41,10 @@
     </div>
 </tr>
 <br><br>
+
+<!-- Opret ny bil i flåden -->
+<!-- Lasse Dall Mikkelsen -->
+
 <h3><a th:href="@{'/create-car'}">Add new car to fleet</a></h3>
 </body>
 </html>

@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<!-- En form action, som  gør det muligt at indtaste nye oplysninger om bilen, men viser også de oprindelige. -->
+<!-- Lasse Dall Mikkelsen -->
+
 <form action="/update-car" method="post">
     <label for="brand" th:text="'Brand (' + ${car.brand} + '):' ">Brand: </label>
     <input type="text" id="brand" name="brand">

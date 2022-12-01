@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+</head>
+<body>
+
+<!-- En form action, som  gør det muligt at indtaste to datoer, hvor man vil finde ledige biler i tidsperioden -->
+<!-- Lasse Dall Mikkelsen -->
+
+<form action="/availability" method="post">
+    <label for="start_date">Start date: </label>
+    <input type="date" id="start_date" name="start_date">
+    <label for="end_date">End date: </label>
+    <input type="date" id="end_date" name="end_date">
+    <button  type="submit">Find cars available in the period</button>
+</form>
+
+</body>
+</html>

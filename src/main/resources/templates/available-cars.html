@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+</head>
+<body>
+
+<!-- Displayer de ledige biler i flåden i den valgte periode -->
+<!-- Lasse Dall Mikkelsen -->
+
+<h2>Ledige biler i perioden:</h2>
+<tr th:each="car : ${availableCars}">
+    <br>
+    <td th:text="${car.brand}">Brand</td>
+    <br>
+    <td th:text="${car.description}">Description</td>
+    <br>
+    <td th:text="'Oprindelig pris: ' + ${car.originalPrice}">Value</td>
+    <br>
+    <td th:text="'Pris pr. måned: ' + ${car.pricePerMonth}">Leasing price</td>
+    <br>
+</tr>
+
+</body>
+</html>

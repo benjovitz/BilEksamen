@@ -336,4 +336,34 @@ public class CarRepository {
       sqle.printStackTrace();
     }
   }
+
+  //Finder ledige biler i en given tidsperiode og returnere dem i en ArrayList
+  //Lasse Dall Mikkelsen
+  public ArrayList<Car> findAvailableCars(String startDate, String endDate) {
+    LocalDate startLocalDate = stringToLocalDate(startDate);
+    LocalDate endLocalDate = stringToLocalDate(endDate);
+    
+    ArrayList<Integer> leasedCars = new ArrayList<>();
+
+    //Looper gennem alle leases og finder tilføjer alle carID'er, der er udlejede i perioden
+    for (Lease lease:leases) {
+      
+      if (lease.getLeaseStart().isBefore(startLocalDate) && lease.getLeaseEnd().isAfter(startLocalDate)) {
+        leasedCars.add(lease.getCar().getCarID());
+      } else if (lease.getLeaseStart().isBefore(endLocalDate) && lease.getLeaseEnd().isAfter(endLocalDate)) {
+        leasedCars.add(lease.getCar().getCarID());
+      }
+    }
+
+    //Nested Loop, der looper gennem alle biler i flåden og looper gennem ArrayListen af carID'er og frasortere de udlejede biler i perioden.
+    ArrayList<Car> availableCars = getDBFleet();
+    for (int i = 0; i < availableCars.size(); i++) {
+      for (int carID:leasedCars) {
+        if (availableCars.get(i).getCarID() == carID) {
+          availableCars.remove(i);
+        }
+      }
+    }
+    return availableCars;
+  }
 }
