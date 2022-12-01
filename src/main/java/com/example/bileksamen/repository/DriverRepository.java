@@ -26,6 +26,10 @@ public class DriverRepository {
         return drivers;
     }
 
+    public void setDrivers(ArrayList<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
     public void createDriver(Driver driver){
 
         try{
@@ -42,7 +46,8 @@ public class DriverRepository {
         }
     }
 
-    public void getAllDrivers(){
+    public ArrayList<Driver> getAllDrivers(){
+        ArrayList<Driver> arr = new ArrayList<>();
 
         try{
             Connection connection = ConnectionManager.getConnection(url,username,password);
@@ -56,11 +61,12 @@ public class DriverRepository {
                 int driverID = resultSet.getInt(1);
                 String firstName = resultSet.getString(2);
                 String lastName = resultSet.getString(3);
-                drivers.add(new Driver(driverID,firstName,lastName));
+                arr.add(new Driver(driverID,firstName,lastName));
             }
 
         } catch (SQLException e){
             throw new RuntimeException(e);
         }
+        return arr;
     }
 }

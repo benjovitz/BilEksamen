@@ -65,7 +65,6 @@ public class CarController {
     carService.getCarRepository().createLease(lease);
     return "create-lease";
   }
-//vælger bil og vælger hvad der skal ske med den, bil i session
 //Daniel Benjovitz
   @GetMapping("/create-driver")
   public String createDriver(){
@@ -82,13 +81,11 @@ public class CarController {
 
   //Daniel Benjovitz
   @GetMapping("/all-drivers")
-  //if statement, måske proppe det i en session istedet for
   public String getAllDrivers(Model model){
-    driverService.getDriverRepository().getAllDrivers();
-    ArrayList<Driver> drivers = driverService.getDriverRepository().getDrivers();
-    model.addAttribute("drivers",drivers);
-    return "all-drivers";
-  }
+      driverService.getDriverRepository().setDrivers(driverService.getDriverRepository().getAllDrivers());
+      model.addAttribute("drivers",driverService.getDriverRepository().getDrivers());
+      return "all-drivers";
+    }
 
   //Daniel Benjovitz
   @GetMapping("/add-driver")
@@ -117,9 +114,21 @@ public class CarController {
   public String createPickup(){
     return "create-pickup";
   }
+
+  /*Her laver vi opretter vi en opsamling af en bil, hertil skal der vælges en bil og en vognmand.
+  Først og fremmest bliver der tjekket om bilen eller vognmanden er null.
+  Der bliver valgt en bil som bliver lagt i en session fra fleet via add-car.
+  Det samme sker med en vognmand fra all-drivers via add-driver.
+  Deres ID bliver plukket ud samt den lokation og dato som kommer fra inputfelter, bliver sat sammen til at skabe et pickup object.
+  Det object bliver sat ind i MySQL databasen.
+  */
   //Daniel Benjovitz
   @PostMapping("/create-pickup")
   public String postCreatePickup(@RequestParam String location, @RequestParam String date, RedirectAttributes redirectAttributes, HttpSession session){
+    if(session.getAttribute("driver") ==null || session.getAttribute("car")==null){
+      System.out.println("car or driver is null");
+      return "redirect:/fleet";
+    }
     redirectAttributes.addAttribute("location",location);
     redirectAttributes.addAttribute("date",date);
     Car car = (Car) session.getAttribute("car");

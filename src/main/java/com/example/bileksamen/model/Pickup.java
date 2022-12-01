@@ -1,5 +1,5 @@
 package com.example.bileksamen.model;
-
+//Daniel Benjovitz
 public class Pickup {
     private int pickupID;
     private int carID;
