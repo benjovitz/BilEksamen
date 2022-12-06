@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret skadesag</title>
+</head>
+<body>
+<!-- Anna -->
+<h1>Opret skadesag</h1>
+<tr th:each="damage : ${damages}">
+    <td th:text="${damage.damageID}">Damage ID</td> <br>
+    <td th:text="${damage.description}">Description</td> <br>
+    <td th:text="${damage.price}">Price</td> <br>
+
+    <td><a th:href="@{/damage-report(id=${damage.damageID})}">Add damage</a> </td> <br>
+    </div>
+</tr>
+
+
+</body>
+</html>
