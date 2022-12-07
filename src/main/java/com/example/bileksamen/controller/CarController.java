@@ -198,7 +198,7 @@ public class CarController {
   public String postCreatePickup(@RequestParam String location, @RequestParam String date, RedirectAttributes redirectAttributes, HttpSession session){
     if(session.getAttribute("driver") ==null || session.getAttribute("car")==null){
       System.out.println("car or driver is null");
-      return "redirect:/fleet";
+      return "redirect:/medarbejder";
     }
     redirectAttributes.addAttribute("location",location);
     redirectAttributes.addAttribute("date",date);
@@ -209,7 +209,7 @@ public class CarController {
     int driverID = driver.getDriverID();
     Pickup pickup = new Pickup(carID,location,date,driverID);
     pickupService.getPickupRepositoy().createPickup(pickup);
-    return "redirect:/fleet";
+    return "redirect:/medarbejder";
   }
 
 }
