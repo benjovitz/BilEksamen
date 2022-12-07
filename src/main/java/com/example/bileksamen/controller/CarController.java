@@ -161,7 +161,7 @@ public class CarController {
     redirectAttributes.addAttribute("firstName",firstName);
     redirectAttributes.addAttribute("lastName",lastName);
     driverService.getDriverRepository().createDriver(new Driver(firstName,lastName));
-    return "redirect:/create-driver";
+    return "redirect:/all-drivers";
   }
 
   //Daniel Benjovitz
