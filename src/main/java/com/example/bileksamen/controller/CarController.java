@@ -147,7 +147,7 @@ public class CarController {
     Costumer costumer = (Costumer) session.getAttribute("costumer");
     Lease lease = new Lease(car, costumer, carService.getCarRepository().stringToLocalDate((String) session.getAttribute("leaseStart")), carService.getCarRepository().stringToLocalDate((String) session.getAttribute("leaseEnd")));
     carService.getCarRepository().createLease(lease);
-    return "create-lease";
+    return "create-pickup";
   }
 
   //Daniel Benjovitz
