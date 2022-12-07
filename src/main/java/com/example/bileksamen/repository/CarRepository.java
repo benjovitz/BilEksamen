@@ -238,22 +238,28 @@ public class CarRepository {
 
   //Finder værdien af bilen.
   //Oscar Storm
-  public void sellCar(Car car) {
+  public int sellCar(int carID) {
+
+    int price = 0;
 
     try {
 
       Connection connection = ConnectionManager.getConnection(url, username, password);
-      String sql = "SELECT price FROM sales WHERE carID=? ";
+      String sql = "SELECT * FROM sales WHERE carID=? ";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-      preparedStatement.setInt(1, car.getCarID());
-      preparedStatement.executeUpdate();
+      preparedStatement.setInt(1, carID);
+      ResultSet resultSet = preparedStatement.executeQuery();
 
-      fleet = getDBFleet();
+      while (resultSet.next()) {
+        price = resultSet.getInt(2);
+      }
 
     } catch (SQLException sqle) {
       sqle.printStackTrace();
     }
+
+    return price;
   }
 
   //Returnere en bil ud fra carID
@@ -357,13 +363,14 @@ public class CarRepository {
 
     //Nested Loop, der looper gennem alle biler i flåden og looper gennem ArrayListen af carID'er og frasortere de udlejede biler i perioden.
     ArrayList<Car> availableCars = getDBFleet();
-    for (int i = 0; i < availableCars.size(); i++) {
+    for (int i = availableCars.size()-1; i > 0 ; i--) {
       for (int carID:leasedCars) {
         if (availableCars.get(i).getCarID() == carID) {
           availableCars.remove(i);
         }
       }
     }
+    System.out.println(availableCars);
     return availableCars;
   }
 }

@@ -16,6 +16,8 @@ public class DamageRepository {
     private String username = System.getenv("username");
     private String password = System.getenv("password");
 
+    public DamageRepository() {}
+
     //Anna
     public void create(Damage damage){
 

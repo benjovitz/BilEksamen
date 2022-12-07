@@ -18,8 +18,7 @@ public class DriverRepository {
     private String password = System.getenv("password");
 
     public DriverRepository(){
-        drivers = new ArrayList<>();
-
+        drivers = getAllDrivers();
     }
 
     public ArrayList<Driver> getDrivers() {
