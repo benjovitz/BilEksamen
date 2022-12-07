@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+    <style>
+        h1{
+            text-align: center; }
+    </style>
+
 </head>
 <body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
+<br>
+<a href="medarbejder" id="back">Tilbage</a>
 
 <!-- En form action, som  gør det muligt at indtaste oplysninger om bilen der skal oprettes -->
 <!-- Lasse Dall Mikkelsen -->
-
+<h1>Opret ny bil</h1>
 <form action="/create-car" method="post">
     <label for="brand" th:text="'Brand:' ">Brand: </label>
     <input type="text" id="brand" name="brand">
@@ -18,7 +28,7 @@
     <input type="text" id="original_price" name="original_price">
     <label for="price_per_month" th:text="'Price pr. month:'">Price pr. month:</label>
     <input type="text" id="price_per_month" name="price_per_month">
-    <button  type="submit">Add car to fleet</button>
+    <button  type="submit" id="submit">Add car to fleet</button>
 </form>
 
 </body>

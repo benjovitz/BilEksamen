@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -24,7 +21,107 @@ public class CarController {
   private DriverService driverService = new DriverService();
   private PickupService pickupService = new PickupService();
 
+  @GetMapping("/available-cars")
+  public String availableCars(){return "available-cars";}
+  //anna
+  @GetMapping("/index")
+  public String index(){return "index";}
+  //anna
+  @GetMapping("/medarbejder")
+  public String medarbejder(){return "medarbejder";}
+  //anna
+  @GetMapping("/forretningsudvikler")
+  public String forretningsudvikler(){return "forretningsudvikler";}
 
+
+  //Get mapping for car-list, som sender den i cookie gemte costumer samt den samlede flåde af biler videre til html gennem en model.
+  //Lasse Dall Mikkelsen
+  @GetMapping("/car-list")
+  public String createList(Model carModel, HttpSession session) {
+    Costumer costumer = (Costumer) session.getAttribute("costumer");
+    carService.getCarRepository().createCostumer(costumer);
+    Costumer costumerWithID = carService.getCarRepository().getCostumers().get(carService.getCarRepository().getCostumers().size()-1);
+    session.setAttribute("costumer", costumerWithID);
+    carModel.addAttribute(costumerWithID);
+    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
+    return "car-list";
+  }
+
+
+  //Daniel Benjovitz
+  @GetMapping("/fleet")
+  public String fleet(HttpSession session, Model carModel){
+    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
+    return "fleet";
+  }
+
+  //Daniel Benjovitz
+  @GetMapping("/add-car")
+  public String addCar(@RequestParam int id, HttpSession session){
+    session.setAttribute("car",carService.getCarRepository().findCarByID(id));
+    return "redirect:/fleet";
+  }
+
+
+
+
+  //Viser lager af biler
+  //Lasse Dall Mikkelsen
+  @GetMapping("/stock")
+  public String stock(Model carModel){
+    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
+    return "stock";
+  }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/update-car/{carID}")
+  public String updateCar(@PathVariable("carID") int carID, HttpSession session, Model carModel){
+    session.setAttribute("car",carService.getCarRepository().findCarByID(carID));
+    carModel.addAttribute("car", session.getAttribute("car"));
+    return "car-list";
+  }
+
+  //Lasse Dall Mikkelsen
+  @PostMapping("/update-car")
+  public String postUpdateCar(@RequestParam("brand") String brand, @RequestParam("description") String description, @RequestParam("original_price") int originalPrice, @RequestParam("price_per_month") int pricePerMonth, HttpSession session) {
+    Car car = (Car) session.getAttribute("car");
+    carService.getCarRepository().updateCar(car.getCarID(), brand, description, originalPrice, pricePerMonth);
+    return "redirect:/stock";
+  }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/delete-car/{carID}")
+  public String deleteCar(@PathVariable("carID") int carID) {
+    carService.getCarRepository().removeCar(carService.getCarRepository().findCarByID(carID));
+    return "stock";
+  }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/create-car")
+  public String createCar() {
+    return "create-car";
+  }
+
+  //Lasse Dall Mikkelsen
+  @PostMapping("/create-car")
+  public String postCreateCar(@RequestParam("brand") String brand, @RequestParam("description") String description, @RequestParam("original_price") int originalPrice, @RequestParam("price_per_month") int pricePerMonth) {
+    carService.getCarRepository().addCar(brand, description, originalPrice, pricePerMonth);
+    return "redirect:/stock";
+  }
+
+  //Lasse Dall Mikkelsen
+  @GetMapping("/availability")
+  public String availability() {
+    return "availability";
+  }
+
+  //Lasse Dall Mikkelsen
+  @PostMapping("/availability")
+  public String postAvailability(@RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate, Model carModel) {
+    ArrayList<Car> availableCars = carService.getCarRepository().findAvailableCars(startDate, endDate);
+    carModel.addAttribute("availableCars", availableCars);
+    return "available-cars";
+  }
 
   //Get og post mapping for create-lease, hvor de indtastede parametre i post bliver redirectet og en HttpSession gemmer parametrene i en cookie
   //Lasse Dall Mikkelsen
@@ -42,19 +139,6 @@ public class CarController {
     return "redirect:/car-list";
   }
 
-  //Get mapping for car-list, som sender den i cookie gemte costumer samt den samlede flåde af biler videre til html gennem en model.
-  //Lasse Dall Mikkelsen
-  @GetMapping("/car-list")
-  public String createList(Model carModel, HttpSession session) {
-    Costumer costumer = (Costumer) session.getAttribute("costumer");
-    carService.getCarRepository().createCostumer(costumer);
-    Costumer costumerWithID = carService.getCarRepository().getCostumers().get(carService.getCarRepository().getCostumers().size()-1);
-    session.setAttribute("costumer", costumerWithID);
-    carModel.addAttribute(costumerWithID);
-    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
-    return "car-list";
-  }
-
   //Get mapping for new-lease, der opretter et lease med den valgte bil gennem en path variable, der sender bilens ID videre i url'en.
   //Lasse Dall Mikkelsen
   @GetMapping("/new-lease/{carID}")
@@ -65,48 +149,35 @@ public class CarController {
     carService.getCarRepository().createLease(lease);
     return "create-lease";
   }
-//Daniel Benjovitz
+
+  //Daniel Benjovitz
   @GetMapping("/create-driver")
   public String createDriver(){
     return "create-driver";
   }
   //Daniel Benjovitz
   @PostMapping("/create-driver")
-  public String postCreateDriver(@RequestParam("driver_first_name") String firstName, @RequestParam("driver_last_name") String lastName,RedirectAttributes redirectAttributes){
+  public String postCreateDriver(@RequestParam("driver_first_name") String firstName, @RequestParam("driver_last_name") String lastName, RedirectAttributes redirectAttributes){
     redirectAttributes.addAttribute("firstName",firstName);
     redirectAttributes.addAttribute("lastName",lastName);
-     driverService.getDriverRepository().createDriver(new Driver(firstName,lastName));
-    return "redirect:/create-driver";
+    driverService.getDriverRepository().createDriver(new Driver(firstName,lastName));
+    return "redirect:/all-drivers";
   }
 
   //Daniel Benjovitz
   @GetMapping("/all-drivers")
   public String getAllDrivers(Model model){
-      driverService.getDriverRepository().setDrivers(driverService.getDriverRepository().getAllDrivers());
-      model.addAttribute("drivers",driverService.getDriverRepository().getDrivers());
-      return "all-drivers";
-    }
+    driverService.getDriverRepository().setDrivers(driverService.getDriverRepository().getAllDrivers());
+    model.addAttribute("drivers",driverService.getDriverRepository().getDrivers());
+    return "all-drivers";
+  }
 
   //Daniel Benjovitz
   @GetMapping("/add-driver")
   public String addDriverToSession(HttpSession session, @RequestParam int id){
-  session.setAttribute("driver",driverService.getDriverByID(id));
+    session.setAttribute("driver",driverService.getDriverByID(id));
     System.out.println(session.getAttribute("driver"));
-  return "redirect:/all-drivers";
-  }
-
-  //Daniel Benjovitz
-  @GetMapping("/fleet")
-  public String fleet(HttpSession session, Model carModel){
-    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
-    return "fleet";
-  }
-
-  //Daniel Benjovitz
-  @GetMapping("/add-car")
-  public String addCar(@RequestParam int id, HttpSession session){
-    session.setAttribute("car",carService.getCarRepository().findCarByID(id));
-    return "redirect:/fleet";
+    return "redirect:/all-drivers";
   }
 
   //Daniel Benjovitz
@@ -141,62 +212,9 @@ public class CarController {
     return "redirect:/fleet";
   }
 
-  //Viser lager af biler
-  //Lasse Dall Mikkelsen
-  @GetMapping("/stock")
-  public String stock(Model carModel){
-    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
-    return "stock";
-  }
-
-  //Lasse Dall Mikkelsen
-  @GetMapping("/update-car/{carID}")
-  public String updateCar(@PathVariable("carID") int carID, HttpSession session, Model carModel){
-    session.setAttribute("car",carService.getCarRepository().findCarByID(carID));
-    carModel.addAttribute("car", session.getAttribute("car"));
-    return "update-car";
-  }
-
-  //Lasse Dall Mikkelsen
-  @PostMapping("/update-car")
-  public String postUpdateCar(@RequestParam("brand") String brand, @RequestParam("description") String description, @RequestParam("original_price") int originalPrice, @RequestParam("price_per_month") int pricePerMonth, HttpSession session) {
-    Car car = (Car) session.getAttribute("car");
-    carService.getCarRepository().updateCar(car.getCarID(), brand, description, originalPrice, pricePerMonth);
-    return "redirect:/stock";
-  }
-
-  //Lasse Dall Mikkelsen
-  @GetMapping("/delete-car/{carID}")
-  public String deleteCar(@PathVariable("carID") int carID) {
-    carService.getCarRepository().removeCar(carService.getCarRepository().findCarByID(carID));
-    return "stock";
-  }
-
-  //Lasse Dall Mikkelsen
-  @GetMapping("/create-car")
-  public String createCar() {
-    return "create-car";
-  }
-
-  //Lasse Dall Mikkelsen
-  @PostMapping("/create-car")
-  public String postCreateCar(@RequestParam("brand") String brand, @RequestParam("description") String description, @RequestParam("original_price") int originalPrice, @RequestParam("price_per_month") int pricePerMonth) {
-    carService.getCarRepository().addCar(brand, description, originalPrice, pricePerMonth);
-    return "redirect:/stock";
-  }
-
-  //Lasse Dall Mikkelsen
-  @GetMapping("/availability")
-  public String avialabilty() {
-    return "availability";
-  }
-
-  //Lasse Dall Mikkelsen
-  @PostMapping("/availability")
-  public String postAvailability(@RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate, Model carModel) {
-    ArrayList<Car> availableCars = carService.getCarRepository().findAvailableCars(startDate, endDate);
-    carModel.addAttribute("availableCars", availableCars);
-    return "available-cars";
-  }
 }
+
+
+
+
 

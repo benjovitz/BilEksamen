@@ -20,14 +20,14 @@ public class DamageController {
 
     //Anna
     @GetMapping("/damage-report")
-    public String damageReport(Model model, @RequestParam int id){
+    public String damageReport(Model model, @RequestParam int id){ //request parameter som læser værdi efter ?/id fra url
         model.addAttribute("ID",id);
         return "damage-report";
     }
 
     //Anna
     @PostMapping("/damage-report")
-    public String damageReport(Damage damage){
+    public String damageReport(Damage damage){ //værdier fra tekstfelter damageID carID
         damageRepository.create(damage);
         return "damageList";
     }

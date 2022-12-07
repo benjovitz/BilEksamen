@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+
 </head>
 
 <!-- Displayer først ledige biler i flåden og derefter udlejede biler. Man kan ud for hver bil vælge update og delete -->
 <!-- Lasse Dall Mikkelsen -->
 
 <body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
+
 <h2>Biler på lager: </h2>
 <tr th:each="car : ${fleet}">
     <div th:if="${car.available}">

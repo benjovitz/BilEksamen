@@ -3,14 +3,24 @@
 <!-- Daniel Benjovitz -->
 <head>
     <meta charset="UTF-8">
-    <title>Ny Vognmand</title>
+    <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+    <style>
+        h1{
+            text-align: center; }
+    </style>
 </head>
 <body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
+<a href="medarbejder" id="back">Tilbage</a>
+
+<h1>Opret vognmand</h1>
 <form action="/create-driver" method="post">
 
-    <input type="text" id="driver_first_name" name="driver_first_name">
-    <input type="text" id="driver_last_name" name="driver_last_name">
-    <input type="submit">
+    <input type="text" id="driver_first_name" name="driver_first_name" placeholder="Fornavn">
+    <input type="text" id="driver_last_name" name="driver_last_name" placeholder="Efternavn">
+    <button type="submit" id="submit">Tilføj vognmand</button>
 </form>
 </body>
 </html>
