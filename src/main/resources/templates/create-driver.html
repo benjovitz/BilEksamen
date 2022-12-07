@@ -3,9 +3,17 @@
 <!-- Daniel Benjovitz -->
 <head>
     <meta charset="UTF-8">
-    <title>Ny Vognmand</title>
+    <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+    <style>
+        h1{
+            text-align: center; }
+    </style>
 </head>
 <body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
+<h1>Opret vognmand</h1>
 <form action="/create-driver" method="post">
 
     <input type="text" id="driver_first_name" name="driver_first_name">

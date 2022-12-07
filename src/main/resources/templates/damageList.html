@@ -2,19 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Opret skadesag</title>
+    <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+
 </head>
 <body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
 <!-- Anna -->
 <h1>Opret skadesag</h1>
-<tr th:each="damage : ${damages}">
-    <td th:text="${damage.damageID}">Damage ID</td> <br>
-    <td th:text="${damage.description}">Description</td> <br>
-    <td th:text="${damage.price}">Price</td> <br>
-
+<table> <tr>
+        <th>Skade ID</th>
+        <th>Beskrivelse</th>
+        <th>Pris</th>
+    <tr  th:each="damage : ${damages}">
+    <td th:text="${damage.damageID}">Damage ID</td>
+    <td th:text="${damage.description}">Description</td>
+    <td th:text="${damage.price}">Price</td>
     <td><a th:href="@{/damage-report(id=${damage.damageID})}">Add damage</a> </td> <br>
-    </div>
-</tr>
+</tr> </table>
 
 
 </body>

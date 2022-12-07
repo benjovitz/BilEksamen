@@ -1,0 +1,86 @@
+h1{
+    font-family: SansSerif;
+    font-size: 3em;
+    font-weight: lighter;
+}
+h3{
+    font-size: 2em;
+    font-family: SansSerif;
+    font-weight: lighter;
+}
+p{
+    font-size: 25px;
+    font-family: SansSerif;
+}
+a{
+    font-size: 25px;
+    font-family: SansSerif;
+    color: black;
+}
+form{
+    font-size: 25px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+
+}
+
+input[type=submit]  {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    background-color: cornflowerblue;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+input[type=date] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+
+}
+
+#submit{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    background-color: cornflowerblue;
+
+}
+tr, th, td{
+    font-size: 25px;
+    border: 2px solid black;
+    padding: 2px;
+}
+
+form{
+    font-size: 20px;
+}
+#center{
+    text-align: center;
+}
+#biler{
+    height: 700px;
+    width: 100%;
+}

@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+    <style>
+        h1{
+            text-align: center; }
+    </style>
 </head>
 <body>
-
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
 <!-- En form action, som  gør det muligt at indtaste oplysninger om kunde og og lease-periode -->
 <!-- Lasse Dall Mikkelsen -->
-
+<h1>Opret lejeaftale</h1>
 <form action="/create-lease" method="post">
     <label for="costumer_first_name">Costumers first name:</label>
     <input type="text" id="costumer_first_name" name="costumer_first_name">

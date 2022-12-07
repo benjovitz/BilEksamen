@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Opret skadesag</title>
+    <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+    <style>
+    h1{
+    text-align: center;
+    }
+    </style>
 </head>
 <body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
 <!--Anna-->
 <h1>Opret skadesag</h1>
-<form action="damage-report" method="post">
-
+<form action="damage-report" method="post" id="form">
+<!--tekstfelt inputfelt sender til postcontroller -->
     <input type="text" name="damageID" th:value="${ID}" >
     <input type="text" name="carID" placeholder="Car ID">
 
-    <button type="submit">Send</button>
+    <button type="submit" id="submit">Send</button>
 
 </form>
 
