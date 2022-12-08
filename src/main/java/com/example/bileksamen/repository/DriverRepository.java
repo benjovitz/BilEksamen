@@ -69,4 +69,22 @@ public class DriverRepository {
         }
         return arr;
     }
+    public void updateDriver(int driverID, String firstName, String lastName){
+        try{
+            Connection connection = ConnectionManager.getConnection(url,username,password);
+
+            String sql = "UPDATE driver SET first_name=?,last_name=? WHERE driverID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(2,lastName);
+            preparedStatement.setInt(3,driverID);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException sqlException){
+            System.out.println("cant connect to database");
+            sqlException.printStackTrace();
+        }
+    }
 }

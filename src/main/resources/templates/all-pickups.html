@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alle opsamlinger</title>
+  <link rel="stylesheet" href="myCSS.css">
+</head>
+<body>
+<table>
+  <tr>
+    <th>pickup ID</th>
+    <th>Car ID</th>
+    <th>Lokation</th>
+    <th>Opsamlingsdato</th>
+    <th>Driver ID</th>
+  </tr>
+  <tr th:each="pickup :${pickups}">
+    <td th:text="${pickup.pickupID}"></td>
+    <td th:text="${pickup.carID}"></td>
+    <td th:text="${pickup.location}"></td>
+    <td th:text="${pickup.pickupDate}"></td>
+    <td th:text="${pickup.driverID}"></td>
+  </tr>
+</table>
+</body>
+</html>

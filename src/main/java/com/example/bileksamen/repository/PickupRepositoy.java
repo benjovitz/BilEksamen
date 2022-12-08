@@ -1,13 +1,11 @@
 package com.example.bileksamen.repository;
 
+import com.example.bileksamen.model.Driver;
 import com.example.bileksamen.model.Pickup;
 import com.example.bileksamen.util.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 //Daniel Benjovitz
@@ -41,4 +39,45 @@ public class PickupRepositoy {
         }
     }
 
+    public void updatePickup(String location, String pickupDate, int pickupID){
+        try{
+            Connection connection = ConnectionManager.getConnection(url,username,password);
+
+            String sql = "UPDATE pickup SET location=?, pickup_date=? WHERE=pickupID=?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1,location);
+            preparedStatement.setString(2,pickupDate);
+            preparedStatement.setInt(3,pickupID);
+        } catch (SQLException sqlException){
+            System.out.println("cant connect to database");
+            sqlException.printStackTrace();
+        }
+    }
+    public ArrayList<Pickup> getAllPickups(){
+        ArrayList<Pickup> arr = new ArrayList<>();
+
+        try{
+            Connection connection = ConnectionManager.getConnection(url,username,password);
+            String sql = "SELECT * FROM pickup";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int pickupID = resultSet.getInt(1);
+                int carID = resultSet.getInt(2);
+                String location = resultSet.getString(3);
+                String pickupDate = resultSet.getString(4);
+                int driverID = resultSet.getInt(5);
+                arr.add(new Pickup(pickupID,carID,location,pickupDate,driverID));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return arr;
+    }
 }

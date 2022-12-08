@@ -5,12 +5,14 @@ import com.example.bileksamen.service.CarService;
 import com.example.bileksamen.service.DriverService;
 import com.example.bileksamen.service.PickupService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.Banner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 
 
@@ -186,13 +188,6 @@ public class CarController {
     return "create-pickup";
   }
 
-  /*Her laver vi opretter vi en opsamling af en bil, hertil skal der vælges en bil og en vognmand.
-  Først og fremmest bliver der tjekket om bilen eller vognmanden er null.
-  Der bliver valgt en bil som bliver lagt i en session fra fleet via add-car.
-  Det samme sker med en vognmand fra all-drivers via add-driver.
-  Deres ID bliver plukket ud samt den lokation og dato som kommer fra inputfelter, bliver sat sammen til at skabe et pickup object.
-  Det object bliver sat ind i MySQL databasen.
-  */
   //Daniel Benjovitz
   @PostMapping("/create-pickup")
   public String postCreatePickup(@RequestParam String location, @RequestParam String date, RedirectAttributes redirectAttributes, HttpSession session){
@@ -210,6 +205,34 @@ public class CarController {
     Pickup pickup = new Pickup(carID,location,date,driverID);
     pickupService.getPickupRepositoy().createPickup(pickup);
     return "redirect:/medarbejder";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/update-driver")
+  public String getUpdateDriver(@RequestParam int driverID, HttpSession session, Model model){
+    session.setAttribute("driver",driverService.getDriverByID(driverID));
+    System.out.println(driverService.getDriverByID(driverID));
+    model.addAttribute("driver", session.getAttribute("d"));
+    return "update-driver";
+  }
+  //Daniel Benjovitz
+  @PostMapping("/update-driver")
+  public String postUpdateDriver(@RequestParam String firstName, @RequestParam String lastName, HttpSession session){
+    Driver driver = (Driver) session.getAttribute("driver");
+    System.out.println(driver);
+    driverService.getDriverRepository().updateDriver(driver.getDriverID(),firstName,lastName);
+    return "redirect:/all-drivers";
+  }
+
+  //Daniel Benjovitz
+  @GetMapping("/update-pickup/{pickupID}")
+  public String getUpdatePickup(){
+    return "úpdate-pickup";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/all-pickups")
+  public String getAllPickups(Model model){
+    model.addAttribute("pickups",pickupService.getPickupRepositoy().getAllPickups());
+    return "all-pickups";
   }
 
 }
