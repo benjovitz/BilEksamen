@@ -234,6 +234,12 @@ public class CarController {
     model.addAttribute("pickups",pickupService.getPickupRepositoy().getAllPickups());
     return "all-pickups";
   }
+  //Daniel Benjovitz
+  @GetMapping("/delete-driver")
+  public String deleteDriver(@RequestParam int driverID) {
+    driverService.getDriverRepository().removeDriver(driverService.getDriverByID(driverID));
+    return "redirect:/all-drivers";
+  }
 
 }
 

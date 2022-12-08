@@ -1,5 +1,6 @@
 package com.example.bileksamen.repository;
 
+import com.example.bileksamen.model.Car;
 import com.example.bileksamen.model.Driver;
 import com.example.bileksamen.model.Pickup;
 import com.example.bileksamen.util.ConnectionManager;
@@ -85,6 +86,21 @@ public class DriverRepository {
         } catch (SQLException sqlException){
             System.out.println("cant connect to database");
             sqlException.printStackTrace();
+        }
+    }
+    public void removeDriver(Driver driver) {
+        try {
+
+            Connection connection = ConnectionManager.getConnection(url, username, password);
+            String sql = "DELETE FROM driver WHERE driverID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, driver.getDriverID());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
         }
     }
 }
