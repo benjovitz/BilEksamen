@@ -47,7 +47,6 @@ public class CarController {
     return "car-list";
   }
 
-
   //Daniel Benjovitz
   @GetMapping("/fleet")
   public String fleet(HttpSession session, Model carModel){
@@ -61,9 +60,6 @@ public class CarController {
     session.setAttribute("car",carService.getCarRepository().findCarByID(id));
     return "redirect:/fleet";
   }
-
-
-
 
   //Viser lager af biler
   //Lasse Dall Mikkelsen
@@ -130,6 +126,7 @@ public class CarController {
     return "create-lease";
   }
 
+  //Lasse Dall Mikkelsen
   @PostMapping("/create-lease")
   public String postCreateLease(@RequestParam("costumer_first_name") String firstName, @RequestParam("costumer_last_name") String lastName, @RequestParam("costumer_email") String email, @RequestParam("costumer_phone") String phone, @RequestParam("lease_start") String leaseStart, @RequestParam("lease_end") String leaseEnd, HttpSession session) {
     Costumer costumer = new Costumer(0, firstName, lastName, email, phone, null);
