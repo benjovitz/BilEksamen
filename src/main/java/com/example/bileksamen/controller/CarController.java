@@ -169,8 +169,7 @@ public class CarController {
   //Daniel Benjovitz
   @GetMapping("/all-drivers")
   public String getAllDrivers(Model model){
-    driverService.getDriverRepository().setDrivers(driverService.getDriverRepository().getAllDrivers());
-    model.addAttribute("drivers",driverService.getDriverRepository().getDrivers());
+    model.addAttribute("drivers",driverService.getDriverRepository().getAllDrivers());
     return "all-drivers";
   }
 
@@ -210,7 +209,6 @@ public class CarController {
   @GetMapping("/update-driver")
   public String getUpdateDriver(@RequestParam int driverID, HttpSession session, Model model){
     session.setAttribute("driver",driverService.getDriverByID(driverID));
-    System.out.println(driverService.getDriverByID(driverID));
     model.addAttribute("driver", session.getAttribute("d"));
     return "update-driver";
   }
@@ -224,9 +222,18 @@ public class CarController {
   }
 
   //Daniel Benjovitz
-  @GetMapping("/update-pickup/{pickupID}")
-  public String getUpdatePickup(){
-    return "úpdate-pickup";
+  @GetMapping("/update-pickup")
+  public String getUpdatePickup(@RequestParam int pickupID, HttpSession session, Model model){
+    session.setAttribute("pickup",pickupService.getPickupByID(pickupID));
+    model.addAttribute("pickup",session.getAttribute("pickup"));
+    return "update-pickup";
+  }
+  //Daniel Benjovitz
+  @PostMapping("/update-pickup")
+  public String postUpdatePickup(@RequestParam String location, @RequestParam String date, HttpSession session){
+    Pickup pickup  =(Pickup) session.getAttribute("pickup");
+    pickupService.getPickupRepositoy().updatePickup(location,date,pickup.getPickupID());
+    return "redirect:/all-pickups";
   }
   //Daniel Benjovitz
   @GetMapping("/all-pickups")
@@ -239,6 +246,15 @@ public class CarController {
   public String deleteDriver(@RequestParam int driverID) {
     driverService.getDriverRepository().removeDriver(driverService.getDriverByID(driverID));
     return "redirect:/all-drivers";
+  }
+  //Fælleskodning
+  @GetMapping("/leased-cars")
+  public String getLeasedCars(Model carModel){
+    ArrayList<Car> list = carService.getCarRepository().leasedCars();
+    carModel.addAttribute("leasedCars",list);
+    carModel.addAttribute("leasedCarsSize",list.size());
+    carModel.addAttribute("income",carService.getCarRepository().getTotalLeasePrice());
+    return "leased-cars";
   }
 
 }

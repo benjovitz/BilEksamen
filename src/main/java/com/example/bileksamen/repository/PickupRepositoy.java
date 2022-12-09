@@ -43,7 +43,7 @@ public class PickupRepositoy {
         try{
             Connection connection = ConnectionManager.getConnection(url,username,password);
 
-            String sql = "UPDATE pickup SET location=?, pickup_date=? WHERE=pickupID=?";
+            String sql = "UPDATE pickup SET location=?, pickup_date=? WHERE pickupID=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 

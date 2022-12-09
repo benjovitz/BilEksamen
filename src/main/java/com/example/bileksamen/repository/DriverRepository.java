@@ -18,18 +18,6 @@ public class DriverRepository {
     private String username = System.getenv("username");
     private String password = System.getenv("password");
 
-    public DriverRepository(){
-        drivers = new ArrayList<>();
-
-    }
-
-    public ArrayList<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(ArrayList<Driver> drivers) {
-        this.drivers = drivers;
-    }
 
     public void createDriver(Driver driver){
 
