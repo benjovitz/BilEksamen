@@ -50,6 +50,7 @@ public class PickupRepositoy {
             preparedStatement.setString(1,location);
             preparedStatement.setString(2,pickupDate);
             preparedStatement.setInt(3,pickupID);
+            preparedStatement.executeUpdate();
         } catch (SQLException sqlException){
             System.out.println("cant connect to database");
             sqlException.printStackTrace();
