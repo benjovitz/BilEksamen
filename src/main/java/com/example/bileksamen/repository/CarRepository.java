@@ -256,6 +256,24 @@ public class CarRepository {
     }
   }
 
+
+  //oscar storm
+  public int carOriginalValue(){
+    int sellValue = 0;
+    int x = 0;
+    int y;
+    for (int i = 0;i <leasedCars().size(); i++){
+      x +=  leasedCars().get(i).getOriginalPrice();
+
+    }
+    y = (sellValue + getTotalLeasePrice())-x;
+    return y;
+  }
+
+
+
+
+
   //Returnere en bil ud fra carID
   //Lasse Dall Mikkelsen
   public Car findCarByID(int carID) {
