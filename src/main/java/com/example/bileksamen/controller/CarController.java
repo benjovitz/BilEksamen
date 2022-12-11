@@ -247,6 +247,12 @@ public class CarController {
     driverService.getDriverRepository().removeDriver(driverService.getDriverByID(driverID));
     return "redirect:/all-drivers";
   }
+  //Daniel Benjovitz
+  @GetMapping("/delete-pickup")
+  public String deletePickup(@RequestParam int pickupID){
+    pickupService.getPickupRepositoy().removePickup(pickupID);
+    return "redirect:/all-pickups";
+  }
   //Fælleskodning
   @GetMapping("/leased-cars")
   public String getLeasedCars(Model carModel){

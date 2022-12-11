@@ -21,6 +21,7 @@
     <td th:text="${pickup.pickupDate}"></td>
     <td th:text="${pickup.driverID}"></td>
     <td><a th:href="@{/update-pickup(pickupID=${pickup.getPickupID})}">Opdater</a></td>
+    <td><a th:href="@{/delete-pickup(pickupID=${pickup.getPickupID})}">Slet</a></td>
   </tr>
 </table>
 </body>

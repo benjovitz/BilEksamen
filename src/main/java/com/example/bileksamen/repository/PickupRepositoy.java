@@ -50,6 +50,7 @@ public class PickupRepositoy {
             preparedStatement.setString(1,location);
             preparedStatement.setString(2,pickupDate);
             preparedStatement.setInt(3,pickupID);
+
             preparedStatement.executeUpdate();
         } catch (SQLException sqlException){
             System.out.println("cant connect to database");
@@ -80,5 +81,19 @@ public class PickupRepositoy {
             throw new RuntimeException(e);
         }
         return arr;
+    }
+
+    public void removePickup (int pickupID){
+        try{
+            Connection connection = ConnectionManager.getConnection(url,username,password);
+            String sql = "DELETE FROM pickup WHERE pickupID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1,pickupID);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
     }
 }
