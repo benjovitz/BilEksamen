@@ -1,5 +1,6 @@
 package com.example.bileksamen.repository;
 
+import com.example.bileksamen.model.Car;
 import com.example.bileksamen.model.Driver;
 import com.example.bileksamen.model.Pickup;
 import com.example.bileksamen.util.ConnectionManager;
@@ -17,18 +18,6 @@ public class DriverRepository {
     private String username = System.getenv("username");
     private String password = System.getenv("password");
 
-    public DriverRepository(){
-        drivers = new ArrayList<>();
-
-    }
-
-    public ArrayList<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(ArrayList<Driver> drivers) {
-        this.drivers = drivers;
-    }
 
     public void createDriver(Driver driver){
 
@@ -68,5 +57,38 @@ public class DriverRepository {
             throw new RuntimeException(e);
         }
         return arr;
+    }
+    public void updateDriver(int driverID, String firstName, String lastName){
+        try{
+            Connection connection = ConnectionManager.getConnection(url,username,password);
+
+            String sql = "UPDATE driver SET first_name=?,last_name=? WHERE driverID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(2,lastName);
+            preparedStatement.setInt(3,driverID);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException sqlException){
+            System.out.println("cant connect to database");
+            sqlException.printStackTrace();
+        }
+    }
+    public void removeDriver(Driver driver) {
+        try {
+
+            Connection connection = ConnectionManager.getConnection(url, username, password);
+            String sql = "DELETE FROM driver WHERE driverID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, driver.getDriverID());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
     }
 }

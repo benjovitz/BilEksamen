@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alle udlejet biler</title>
+    <link rel="stylesheet" href="myCSS.css">
+</head>
+<body>
+
+<div>
+    <p>Her er den totale indkomst <span th:text="${income}"></span>DKK</p>
+    <p>Antal af udlejet biler <span th:text="${leasedCarsSize}"></span></p>
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Description</th>
+            <th>OG Price</th>
+            <th>Price per month</th>
+        </tr>
+        <tr th:each="car : ${leasedCars}">
+            <td th:text="${car.brand}">Brand</td>
+            <td th:text="${car.description}">Brand</td>
+            <td th:text="${car.originalPrice}">Value</td>
+            <td th:text="${car.pricePerMonth}">Leasing price</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

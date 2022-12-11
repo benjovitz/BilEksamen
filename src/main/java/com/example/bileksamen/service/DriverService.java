@@ -15,7 +15,7 @@ public class DriverService {
         return driverRepository;
     }
   public Driver getDriverByID(int driverID){
-      for (Driver driver: driverRepository.getDrivers()) {
+      for (Driver driver: driverRepository.getAllDrivers()) {
           if(driver.getDriverID()==driverID){
               return driver;
           }

@@ -366,4 +366,23 @@ public class CarRepository {
     }
     return availableCars;
   }
+  //Fælleskodning
+  public ArrayList<Car> leasedCars(){
+    ArrayList<Car> list = new ArrayList<>();
+    for (Car car:fleet) {
+      if(!car.isAvailable()){
+        list.add(car);
+      }
+    }
+    return list;
+  }
+  //Fælleskodning
+  public int getTotalLeasePrice(){
+    int i =0;
+    ArrayList<Car> list = leasedCars();
+    for (Car car:list) {
+      i+=car.getPricePerMonth();
+    }
+    return i;
+  }
 }

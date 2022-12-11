@@ -24,6 +24,8 @@
         <td th:text="${d.firstName}"></td>
         <td th:text="${d.lastName}"></td>
         <td><a th:href="@{/add-driver(id=${d.getDriverID})}">Tilføj vognmand</a> </td>
+        <td><a th:href="@{/update-driver(driverID=${d.getDriverID})}">Opdater</a></td>
+        <td><a th:href="@{/delete-driver(driverID=${d.getDriverID})}">Slet</a></td>
     </tr>
 </table>
 </body>
