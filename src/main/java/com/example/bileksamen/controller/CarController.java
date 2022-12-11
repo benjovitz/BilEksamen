@@ -34,6 +34,7 @@ public class CarController {
   public String forretningsudvikler(){return "forretningsudvikler";}
 
 
+
   //Get mapping for car-list, som sender den i cookie gemte costumer samt den samlede flåde af biler videre til html gennem en model.
   //Lasse Dall Mikkelsen
   @GetMapping("/car-list")
@@ -138,6 +139,17 @@ public class CarController {
     session.setAttribute("leaseEnd", leaseEnd);
     return "redirect:/car-list";
   }
+
+
+  @GetMapping("analytics")
+    public String createAnalytics(){
+      return "analytics";
+    }
+
+
+
+
+
 
   //Get mapping for new-lease, der opretter et lease med den valgte bil gennem en path variable, der sender bilens ID videre i url'en.
   //Lasse Dall Mikkelsen
