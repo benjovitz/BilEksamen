@@ -200,19 +200,20 @@ public class CarController {
 
   //Daniel Benjovitz
   @PostMapping("/create-pickup")
-  public String postCreatePickup(@RequestParam String location, @RequestParam String date, RedirectAttributes redirectAttributes, HttpSession session){
+  public String postCreatePickup(@RequestParam String location, @RequestParam String date,@RequestParam boolean pickedUp, RedirectAttributes redirectAttributes, HttpSession session){
     if(session.getAttribute("driver") ==null || session.getAttribute("car")==null){
       System.out.println("car or driver is null");
       return "redirect:/medarbejder";
     }
     redirectAttributes.addAttribute("location",location);
     redirectAttributes.addAttribute("date",date);
+    redirectAttributes.addAttribute("pickedUp",pickedUp);
     Car car = (Car) session.getAttribute("car");
     int carID = car.getCarID();
 
     Driver driver = (Driver) session.getAttribute("driver");
     int driverID = driver.getDriverID();
-    Pickup pickup = new Pickup(carID,location,date,driverID);
+    Pickup pickup = new Pickup(carID,location,date,driverID,pickedUp);
     pickupService.getPickupRepositoy().createPickup(pickup);
     return "redirect:/medarbejder";
   }
@@ -244,6 +245,18 @@ public class CarController {
   public String postUpdatePickup(@RequestParam String location, @RequestParam String date, HttpSession session){
     Pickup pickup  =(Pickup) session.getAttribute("pickup");
     pickupService.getPickupRepositoy().updatePickup(location,date,pickup.getPickupID());
+    return "redirect:/all-pickups";
+  }
+  //Daniel Benjovitz
+  @GetMapping("/register-pickup")
+  public String registerPickup(@RequestParam int pickupID){
+    Pickup pickup = pickupService.getPickupByID(pickupID);
+
+    if(pickup.isPickedUp()==true){
+      pickupService.getPickupRepositoy().registerPickup(pickupID,false);
+    } else{
+      pickupService.getPickupRepositoy().registerPickup(pickupID,true);
+    }
     return "redirect:/all-pickups";
   }
   //Daniel Benjovitz
