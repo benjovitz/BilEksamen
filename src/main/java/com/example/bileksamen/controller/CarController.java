@@ -1,6 +1,7 @@
 package com.example.bileksamen.controller;
 
 import com.example.bileksamen.model.*;
+import com.example.bileksamen.repository.CarRepository;
 import com.example.bileksamen.service.CarService;
 import com.example.bileksamen.service.DriverService;
 import com.example.bileksamen.service.PickupService;
@@ -22,6 +23,7 @@ public class CarController {
   private CarService carService = new CarService();
   private DriverService driverService = new DriverService();
   private PickupService pickupService = new PickupService();
+  private CarRepository carRepository = new CarRepository();
 
   @GetMapping("/available-cars")
   public String availableCars(){return "available-cars";}
@@ -142,15 +144,12 @@ public class CarController {
     return "redirect:/car-list";
   }
 
-
-  @GetMapping("analytics")
-    public String createAnalytics(){
+  //oscar storm
+  @GetMapping("/analytics")
+    public String createAnalytics(Model model){
+    model.addAttribute(carRepository.carProfit());
       return "analytics";
     }
-
-
-
-
 
 
   //Get mapping for new-lease, der opretter et lease med den valgte bil gennem en path variable, der sender bilens ID videre i url'en.
@@ -267,7 +266,7 @@ public class CarController {
   }
   //Fælleskodning
   @GetMapping("/leased-cars")
-  public String getLeasedCars(Model carModel){
+  public String get(Model carModel){
     ArrayList<Car> list = carService.getCarRepository().leasedCars();
     carModel.addAttribute("leasedCars",list);
     carModel.addAttribute("leasedCarsSize",list.size());

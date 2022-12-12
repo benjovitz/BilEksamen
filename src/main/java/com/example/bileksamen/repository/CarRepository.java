@@ -258,7 +258,7 @@ public class CarRepository {
 
 
   //oscar storm
-  public int carOriginalValue(){
+  public int carProfit(){
     int sellValue = 0;
     int x = 0;
     int y;
