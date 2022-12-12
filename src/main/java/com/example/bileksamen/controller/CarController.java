@@ -200,20 +200,20 @@ public class CarController {
 
   //Daniel Benjovitz
   @PostMapping("/create-pickup")
-  public String postCreatePickup(@RequestParam String location, @RequestParam String date,@RequestParam boolean pickedUp, RedirectAttributes redirectAttributes, HttpSession session){
+  public String postCreatePickup(@RequestParam String location, @RequestParam String date, RedirectAttributes redirectAttributes, HttpSession session){
     if(session.getAttribute("driver") ==null || session.getAttribute("car")==null){
       System.out.println("car or driver is null");
       return "redirect:/medarbejder";
     }
     redirectAttributes.addAttribute("location",location);
     redirectAttributes.addAttribute("date",date);
-    redirectAttributes.addAttribute("pickedUp",pickedUp);
+    redirectAttributes.addAttribute("pickedUp",false);
     Car car = (Car) session.getAttribute("car");
     int carID = car.getCarID();
 
     Driver driver = (Driver) session.getAttribute("driver");
     int driverID = driver.getDriverID();
-    Pickup pickup = new Pickup(carID,location,date,driverID,pickedUp);
+    Pickup pickup = new Pickup(carID,location,date,driverID,false);
     pickupService.getPickupRepositoy().createPickup(pickup);
     return "redirect:/medarbejder";
   }
