@@ -23,7 +23,7 @@ public class CarController {
   private CarService carService = new CarService();
   private DriverService driverService = new DriverService();
   private PickupService pickupService = new PickupService();
-  private CarRepository carRepository = new CarRepository();
+
 
   @GetMapping("/available-cars")
   public String availableCars(){return "available-cars";}
@@ -147,7 +147,7 @@ public class CarController {
   //oscar storm
   @GetMapping("/analytics")
     public String createAnalytics(Model model){
-    model.addAttribute(carRepository.carProfit());
+    model.addAttribute(carService.getCarRepository().carProfit());
       return "analytics";
     }
 

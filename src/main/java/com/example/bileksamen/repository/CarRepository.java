@@ -270,10 +270,6 @@ public class CarRepository {
     return y;
   }
 
-
-
-
-
   //Returnere en bil ud fra carID
   //Lasse Dall Mikkelsen
   public Car findCarByID(int carID) {
