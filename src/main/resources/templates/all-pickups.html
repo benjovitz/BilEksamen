@@ -13,6 +13,7 @@
     <th>Lokation</th>
     <th>Opsamlingsdato</th>
     <th>Driver ID</th>
+    <th>Er samlet op</th>
   </tr>
   <tr th:each="pickup :${pickups}">
     <td th:text="${pickup.pickupID}"></td>
@@ -20,7 +21,10 @@
     <td th:text="${pickup.location}"></td>
     <td th:text="${pickup.pickupDate}"></td>
     <td th:text="${pickup.driverID}"></td>
+    <td th:text="${pickup.pickedUp}"></td>
+    <td><a th:href="@{/register-pickup(pickupID=${pickup.getPickupID})}">Hent</a></td>
     <td><a th:href="@{/update-pickup(pickupID=${pickup.getPickupID})}">Opdater</a></td>
+    <td><a th:href="@{/delete-pickup(pickupID=${pickup.getPickupID})}">Slet</a></td>
   </tr>
 </table>
 </body>

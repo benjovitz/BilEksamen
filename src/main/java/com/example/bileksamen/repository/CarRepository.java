@@ -262,6 +262,20 @@ public class CarRepository {
     return price;
   }
 
+
+  //oscar storm
+  public int carProfit(){
+    int sellValue = 0;
+    int x = 0;
+    int y;
+    for (int i = 0;i <leasedCars().size(); i++){
+      x +=  leasedCars().get(i).getOriginalPrice();
+
+    }
+    y = (sellValue + getTotalLeasePrice())-x;
+    return y;
+  }
+
   //Returnere en bil ud fra carID
   //Lasse Dall Mikkelsen
   public Car findCarByID(int carID) {
@@ -373,7 +387,7 @@ public class CarRepository {
     System.out.println(availableCars);
     return availableCars;
   }
-  //Fælleskodning
+  //oscar storm
   public ArrayList<Car> leasedCars(){
     ArrayList<Car> list = new ArrayList<>();
     for (Car car:fleet) {
@@ -383,7 +397,7 @@ public class CarRepository {
     }
     return list;
   }
-  //Fælleskodning
+  //oscar storm
   public int getTotalLeasePrice(){
     int i =0;
     ArrayList<Car> list = leasedCars();

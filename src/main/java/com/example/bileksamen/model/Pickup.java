@@ -6,6 +6,7 @@ public class Pickup {
     private String location;
     private String pickupDate;
     private int driverID;
+    private boolean pickedUp;
 
     @Override
     public String toString() {
@@ -18,19 +19,29 @@ public class Pickup {
                 '}';
     }
 
-    public Pickup(int pickupID, int carID, String location, String pickupDate, int driverID) {
+    public boolean isPickedUp() {
+        return pickedUp;
+    }
+
+    public void setPickedUp(boolean pickedUp) {
+        this.pickedUp = pickedUp;
+    }
+
+    public Pickup(int pickupID, int carID, String location, String pickupDate, int driverID, boolean pickedUp) {
         this.pickupID = pickupID;
         this.carID = carID;
         this.location = location;
         this.pickupDate = pickupDate;
         this.driverID = driverID;
+        this.pickedUp=pickedUp;
     }
 
-    public Pickup(int carID, String location, String pickupDate, int driverID) {
+    public Pickup(int carID, String location, String pickupDate, int driverID, boolean pickedUp) {
         this.carID = carID;
         this.location = location;
         this.pickupDate = pickupDate;
         this.driverID = driverID;
+        this.pickedUp=pickedUp;
     }
 
     public int getPickupID() {

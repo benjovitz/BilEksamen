@@ -1,6 +1,7 @@
 package com.example.bileksamen.controller;
 
 import com.example.bileksamen.model.*;
+import com.example.bileksamen.repository.CarRepository;
 import com.example.bileksamen.service.CarService;
 import com.example.bileksamen.service.DriverService;
 import com.example.bileksamen.service.PickupService;
@@ -23,6 +24,7 @@ public class CarController {
   private DriverService driverService = new DriverService();
   private PickupService pickupService = new PickupService();
 
+
   @GetMapping("/available-cars")
   public String availableCars(){return "available-cars";}
   //anna
@@ -34,6 +36,7 @@ public class CarController {
   //anna
   @GetMapping("/forretningsudvikler")
   public String forretningsudvikler(){return "forretningsudvikler";}
+
 
 
   //Get mapping for car-list, som sender den i cookie gemte costumer samt den samlede flåde af biler videre til html gennem en model.
@@ -138,6 +141,14 @@ public class CarController {
     return "redirect:/car-list";
   }
 
+  //oscar storm
+  @GetMapping("/analytics")
+    public String createAnalytics(Model model){
+    model.addAttribute(carService.getCarRepository().carProfit());
+      return "analytics";
+    }
+
+
   //Get mapping for new-lease, der opretter et lease med den valgte bil gennem en path variable, der sender bilens ID videre i url'en.
   //Lasse Dall Mikkelsen
   @GetMapping("/new-lease/{carID}")
@@ -193,12 +204,13 @@ public class CarController {
     }
     redirectAttributes.addAttribute("location",location);
     redirectAttributes.addAttribute("date",date);
+    redirectAttributes.addAttribute("pickedUp",false);
     Car car = (Car) session.getAttribute("car");
     int carID = car.getCarID();
 
     Driver driver = (Driver) session.getAttribute("driver");
     int driverID = driver.getDriverID();
-    Pickup pickup = new Pickup(carID,location,date,driverID);
+    Pickup pickup = new Pickup(carID,location,date,driverID,false);
     pickupService.getPickupRepositoy().createPickup(pickup);
     return "redirect:/medarbejder";
   }
@@ -233,6 +245,18 @@ public class CarController {
     return "redirect:/all-pickups";
   }
   //Daniel Benjovitz
+  @GetMapping("/register-pickup")
+  public String registerPickup(@RequestParam int pickupID){
+    Pickup pickup = pickupService.getPickupByID(pickupID);
+
+    if(pickup.isPickedUp()==true){
+      pickupService.getPickupRepositoy().registerPickup(pickupID,false);
+    } else{
+      pickupService.getPickupRepositoy().registerPickup(pickupID,true);
+    }
+    return "redirect:/all-pickups";
+  }
+  //Daniel Benjovitz
   @GetMapping("/all-pickups")
   public String getAllPickups(Model model){
     model.addAttribute("pickups",pickupService.getPickupRepositoy().getAllPickups());
@@ -244,9 +268,15 @@ public class CarController {
     driverService.getDriverRepository().removeDriver(driverService.getDriverByID(driverID));
     return "redirect:/all-drivers";
   }
+  //Daniel Benjovitz
+  @GetMapping("/delete-pickup")
+  public String deletePickup(@RequestParam int pickupID){
+    pickupService.getPickupRepositoy().removePickup(pickupID);
+    return "redirect:/all-pickups";
+  }
   //Fælleskodning
   @GetMapping("/leased-cars")
-  public String getLeasedCars(Model carModel){
+  public String get(Model carModel){
     ArrayList<Car> list = carService.getCarRepository().leasedCars();
     carModel.addAttribute("leasedCars",list);
     carModel.addAttribute("leasedCarsSize",list.size());
