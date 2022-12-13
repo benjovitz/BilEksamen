@@ -380,7 +380,7 @@ public class CarRepository {
     }
     return availableCars;
   }
-  //Fælleskodning
+  //oscar storm
   public ArrayList<Car> leasedCars(){
     ArrayList<Car> list = new ArrayList<>();
     for (Car car:fleet) {
@@ -390,7 +390,7 @@ public class CarRepository {
     }
     return list;
   }
-  //Fælleskodning
+  //oscar storm
   public int getTotalLeasePrice(){
     int i =0;
     ArrayList<Car> list = leasedCars();
