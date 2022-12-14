@@ -391,8 +391,8 @@ public class CarRepository {
     return list;
   }
   //oscar storm
-  public int getTotalLeasePrice(){
-    int i =0;
+  public double getTotalLeasePrice(){
+    double i =0;
     ArrayList<Car> list = leasedCars();
     for (Car car:list) {
       i+=car.getPricePerMonth();
