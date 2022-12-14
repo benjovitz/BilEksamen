@@ -258,10 +258,10 @@ public class CarRepository {
 
 
   //oscar storm
-  public int carProfit(){
+  public double carProfit(){
     int sellValue = 0;
-    int x = 0;
-    int y;
+    double x = 0;
+    double y;
     for (int i = 0;i <leasedCars().size(); i++){
       x +=  leasedCars().get(i).getOriginalPrice();
 
@@ -399,4 +399,8 @@ public class CarRepository {
     }
     return i;
   }
+
+
+
+
 }
