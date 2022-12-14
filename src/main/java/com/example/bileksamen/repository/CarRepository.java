@@ -259,15 +259,15 @@ public class CarRepository {
 
   //oscar storm
   public double carProfit(){
-    int sellValue = 0;
-    double x = 0;
-    double y;
+    double sellValue = 0;
+    double originalPrice = 0;
+    double profit;
     for (int i = 0;i <leasedCars().size(); i++){
-      x +=  leasedCars().get(i).getOriginalPrice();
-
+      originalPrice +=  leasedCars().get(i).getOriginalPrice();
+      sellValue += leasedCars().get(i).getSellValue();
     }
-    y = (sellValue + getTotalLeasePrice())-x;
-    return y;
+    profit = (sellValue + getTotalLeasePrice())-originalPrice;
+    return profit;
   }
 
   //Returnere en bil ud fra carID

@@ -10,6 +10,7 @@ public class Car {
   private int originalPrice;
   private int pricePerMonth;
   private boolean available;
+  private double sellValue;
 
   public Car(int carID, String description, String brand, int originalPrice, int pricePerMonth, boolean available) {
     this.carID = carID;
@@ -18,6 +19,13 @@ public class Car {
     this.originalPrice = originalPrice;
     this.pricePerMonth = pricePerMonth;
     this.available = available;
+    this.sellValue = 10000;
+  }
+
+  public double getSellValue(){return sellValue;}
+
+  public void setSellValue(double sellValue) {
+    this.sellValue = sellValue;
   }
 
   public int getCarID() {
