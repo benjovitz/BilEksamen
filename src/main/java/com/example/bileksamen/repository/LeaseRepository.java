@@ -194,7 +194,6 @@ public class LeaseRepository {
         }
       }
     }
-    System.out.println(availableCars);
     return availableCars;
   }
 }

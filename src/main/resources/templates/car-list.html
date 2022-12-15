@@ -14,13 +14,11 @@
 
 <div th:text="${costumer.toString()}">Costumer</div>
 
-<tr th:each="car : ${fleet}">
-    <div th:if="${car.available}">
+<tr th:each="car : ${available_fleet}">
         <td th:text="${car.brand}">Brand</td>
         <td th:text="${car.originalPrice}">Value</td>
         <td th:text="${car.pricePerMonth}">Leasing price</td>
         <td><a th:href="@{'/new-lease/' + ${car.carID}}">Choose</a></td>
-    </div>
 </tr>
 
 </body>

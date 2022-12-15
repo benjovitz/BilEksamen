@@ -71,7 +71,6 @@ public class CarRepository {
   public void changeAvailability(int carID) {
 
     try {
-
       Connection connection = ConnectionManager.getConnection(url, username, password);
       String sql = "UPDATE fleet SET available=? WHERE carID=?";
 
@@ -97,6 +96,7 @@ public class CarRepository {
   public void removeCar(Car car) {
     try {
 
+      System.out.println(url);
       Connection connection = ConnectionManager.getConnection(url, username, password);
       String sql = "DELETE FROM fleet WHERE carId=?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -104,6 +104,8 @@ public class CarRepository {
       preparedStatement.setInt(1, car.getCarID());
 
       preparedStatement.executeUpdate();
+
+      fleet = getDBFleet();
 
     } catch (SQLException sqle) {
       sqle.printStackTrace();

@@ -31,7 +31,10 @@ public class LeaseController {
     Costumer costumerWithID = leaseService.getLeaseRepository().getCostumers().get(leaseService.getLeaseRepository().getCostumers().size()-1);
     session.setAttribute("costumer", costumerWithID);
     carModel.addAttribute(costumerWithID);
-    carModel.addAttribute("fleet", carService.getCarRepository().getFleet());
+    String leaseStart = (String) session.getAttribute("leaseStart");
+    String leaseEnd = (String) session.getAttribute("leaseEnd");
+    ArrayList<Car> availableFleet = leaseService.getLeaseRepository().findAvailableCars(leaseStart, leaseEnd, carService.getCarRepository().getFleet());
+    carModel.addAttribute("available_fleet", availableFleet);
     return "car-list";
   }
 
