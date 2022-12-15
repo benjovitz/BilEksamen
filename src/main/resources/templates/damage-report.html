@@ -14,9 +14,10 @@
 <img th:src="@{images/logo.png}" src="/static/images/logo.png">
 <br>
 <!--Anna-->
+<!--tekstfelt inputfelt sender til postcontroller -->
+
 <h1>Opret skadesag</h1>
 <form action="damage-report" method="post" id="form">
-<!--tekstfelt inputfelt sender til postcontroller -->
     <input type="text" name="damageID" th:value="${ID}" >
     <input type="text" name="carID" placeholder="Car ID">
 
