@@ -2,6 +2,8 @@ package com.example.bileksamen.service;
 
 import com.example.bileksamen.repository.DamageRepository;
 
+import java.util.ArrayList;
+
 //Anna
 public class DamageService {
 
@@ -14,4 +16,5 @@ public class DamageService {
   public DamageRepository getDamageRepository() {
     return damageRepository;
   }
+
 }

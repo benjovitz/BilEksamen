@@ -22,6 +22,11 @@ public class Damage {
         this.description=description;
         this.price=price;
     }
+    //Daniel
+    public Damage(int damageID,int carID){
+        this.damageID=damageID;
+        this.carID=carID;
+    }
 
     public int getDamageID() {
         return damageID;

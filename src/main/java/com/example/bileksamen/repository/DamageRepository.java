@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 //Anna Schmidt
 @Repository
 public class DamageRepository {
@@ -60,6 +62,44 @@ public class DamageRepository {
         }
         return damages;
     }
+    //Daniel Benjovitz
+    public ArrayList<Damage> getAllDamage(){
 
+        ArrayList<Damage> list = new ArrayList<>();
+        try{
+            Connection connection = ConnectionManager.getConnection(url,username,password);
+            String sql = "SELECT * FROM damage";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int damageID = resultSet.getInt(1);
+                int carID = resultSet.getInt(2);
+                list.add(new Damage(damageID,carID));
+            }
+
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<Damage> getAllDamageDone(){
+        ArrayList<Damage> damageList = getAllDamage();
+        ArrayList<Damage> damageDim = getAllDamageDim();
+
+
+        for (int i = 0; i < damageList.size(); i++) {
+            Damage current = damageList.get(i);
+            for (int j = 0; j < damageDim.size(); j++) {
+                if(current.getDamageID()==damageDim.get(j).getDamageID()){
+                    current.setDescription(damageDim.get(j).getDescription());
+                    current.setPrice(damageDim.get(j).getPrice());
+                }
+            }
+        }
+        return damageList;
+    }
 
 }
