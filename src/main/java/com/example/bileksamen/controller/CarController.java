@@ -84,6 +84,13 @@ public class CarController {
   }
 
   //Lasse Dall Mikkelsen
+  @GetMapping("/change-availability/{carID}")
+  public String changeAvailability(@PathVariable("carID") int carID) {
+    carService.getCarRepository().changeAvailability(carID);
+    return "redirect:/stock";
+  }
+
+  //Lasse Dall Mikkelsen
   @GetMapping("/create-car")
   public String createCar() {
     return "create-car";
