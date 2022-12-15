@@ -138,16 +138,16 @@ public class CarRepository {
 
 
   //oscar storm
-  public int carProfit(){
-    int sellValue = 0;
-    int x = 0;
-    int y;
+  public double carProfit(){
+    double sellValue = 0;
+    double originalPrice = 0;
+    double profit;
     for (int i = 0;i <leasedCars().size(); i++){
-      x +=  leasedCars().get(i).getOriginalPrice();
-
+      originalPrice +=  leasedCars().get(i).getOriginalPrice();
+      sellValue += leasedCars().get(i).getSellValue();
     }
-    y = (sellValue + getTotalLeasePrice())-x;
-    return y;
+    profit = (sellValue + getTotalLeasePrice())-originalPrice;
+    return profit;
   }
 
   //Returnere en bil ud fra carID
@@ -222,12 +222,16 @@ public class CarRepository {
     return list;
   }
   //oscar storm
-  public int getTotalLeasePrice(){
-    int i =0;
+  public double getTotalLeasePrice(){
+    double i =0;
     ArrayList<Car> list = leasedCars();
     for (Car car:list) {
       i+=car.getPricePerMonth();
     }
     return i;
   }
+
+
+
+
 }
