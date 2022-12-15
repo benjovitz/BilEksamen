@@ -10,35 +10,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarRepositoryTest {
 
-  //Unit test af metoderne stringToLocalDate og sellCar i CarRepository
+  //Unit test af metoderne stringToLocalDate i CarRepository
   //Lasse Dall Mikkelsen
 
-  CarRepository carRepository;
+  LeaseRepository leaseRepository;
 
   //Arrange
   @BeforeEach
   void setUp() {
-    carRepository = new CarRepository();
+    leaseRepository = new LeaseRepository();
   }
 
-  @Test
-  void sellCar() {
-
-    //Act
-    //Jeg ved at prisen på salget af bilen med carID 6 i databasen har en pris på er 1, og jeg vil i det følgende teste om metoden sellCar returnere 1, hvis jeg indsætter carID 6 som parameter.
-    int value = carRepository.sellCar(6);
-
-    //Assert
-    //Nu tester jeg med assertEquals om metoden returnere 1 som forventet.
-    assertEquals(1, value);
-  }
 
   @Test
   void stringToLocalDate() {
 
     //Act
     //Metoden tager en String på formen "yyyy-mm-dd" og laver den til et LocalDate objekt. Det vil jeg i det følgende teste.
-    LocalDate localDate = carRepository.stringToLocalDate("2022-06-12");
+    LocalDate localDate = leaseRepository.stringToLocalDate("2022-06-12");
 
     //Assert
     //Nu tester jeg med assertEquals om metoden returnere det forventede år, den forventede måned og den forventede dag.

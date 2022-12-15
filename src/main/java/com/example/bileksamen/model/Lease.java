@@ -8,25 +8,25 @@ public class Lease {
 
   private int leaseID;
   private int pricePerMonth;
-  private Car car;
-  private Costumer costumer;
+  private int carID;
+  private int costumerID;
   private LocalDate leaseStart;
   private LocalDate leaseEnd;
 
-  public Lease(int leaseID, int pricePerMonth, Car car, Costumer costumer, LocalDate leaseStart, LocalDate leaseEnd) {
+  public Lease(int leaseID, int pricePerMonth, int carID, int costumerID, LocalDate leaseStart, LocalDate leaseEnd) {
     this.leaseID = leaseID;
     this.pricePerMonth = pricePerMonth;
     this.leaseStart = leaseStart;
     this.leaseEnd = leaseEnd;
-    this.car = car;
-    this.costumer = costumer;
+    this.carID = carID;
+    this.costumerID = costumerID;
   }
 
-  public Lease(Car car, Costumer costumer, LocalDate leaseStart, LocalDate leaseEnd) {
+  public Lease(int carID, int costumerID, LocalDate leaseStart, LocalDate leaseEnd) {
     this.leaseStart = leaseStart;
     this.leaseEnd = leaseEnd;
-    this.car = car;
-    this.costumer = costumer;
+    this.carID = carID;
+    this.costumerID = costumerID;
   }
 
   public int getLeaseID() {
@@ -53,30 +53,31 @@ public class Lease {
     this.leaseEnd = leaseEnd;
   }
 
-  public Car getCar() {
-    return car;
+  public int getCarID() {
+    return carID;
   }
 
-  public void setCar(Car car) {
-    this.car = car;
+  public void setCarID(int carID) {
+    this.carID = carID;
   }
 
-  public Costumer getCostumer() {
-    return costumer;
+  public int getCostumerID() {
+    return costumerID;
   }
 
-  public void setCostumer(Costumer costumer) {
-    this.costumer = costumer;
+  public void setCostumer(int costumerID) {
+    this.costumerID = costumerID;
   }
 
   @Override
   public String toString() {
     return "Lease{" +
         "leaseID=" + leaseID +
-        ", car=" + car +
-        ", costumer=" + costumer +
-        ", leaseStart='" + leaseStart + '\'' +
-        ", leaseEnd='" + leaseEnd + '\'' +
+        ", pricePerMonth=" + pricePerMonth +
+        ", carID=" + carID +
+        ", costumerID=" + costumerID +
+        ", leaseStart=" + leaseStart +
+        ", leaseEnd=" + leaseEnd +
         '}';
   }
 

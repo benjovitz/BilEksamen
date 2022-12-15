@@ -2,6 +2,7 @@ package com.example.bileksamen.controller;
 
 import com.example.bileksamen.model.Damage;
 import com.example.bileksamen.repository.DamageRepository;
+import com.example.bileksamen.service.DamageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DamageController {
 
-    DamageRepository damageRepository;
+    DamageService damageService;
 
     //Anna
     public DamageController(){
-        damageRepository = new DamageRepository();
+        damageService = new DamageService();
     }
 
     //Anna
@@ -28,14 +29,14 @@ public class DamageController {
     //Anna
     @PostMapping("/damage-report")
     public String damageReport(Damage damage){ //værdier fra tekstfelter damageID carID
-        damageRepository.create(damage);
+        damageService.getDamageRepository().create(damage);
         return "damageList";
     }
 
     //Anna
     @GetMapping("/damageList")
     public String getAllDamages(Model model){
-        model.addAttribute("damages",damageRepository.getAllDamageDim());
+        model.addAttribute("damages",damageService.getDamageRepository().getAllDamageDim());
         return "damageList";
     }
 
