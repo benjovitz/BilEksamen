@@ -49,7 +49,7 @@ public class CarController {
   @GetMapping("/add-car")
   public String addCar(@RequestParam int id, HttpSession session){
     session.setAttribute("car",carService.getCarRepository().findCarByID(id));
-    return "redirect:/pick-drivers";
+    return "redirect:/pick-driver";
   }
 
   //Viser lager af biler
@@ -99,7 +99,9 @@ public class CarController {
   //oscar storm
   @GetMapping("/analytics")
     public String createAnalytics(Model model){
-    model.addAttribute(carService.getCarRepository().carProfit());
+    model.addAttribute("carProfit",carService.getCarRepository().carProfit());
+    model.addAttribute("numberOfCars",carService.getCarRepository().leasedCars().size());
+    model.addAttribute("totalPrice",carService.getCarRepository().getTotalLeasePrice());
       return "analytics";
     }
 

@@ -77,7 +77,7 @@ public class LeaseController {
     Lease lease = new Lease(carID, costumer.getCostumerID(), leaseService.getLeaseRepository().stringToLocalDate((String) session.getAttribute("leaseStart")), leaseService.getLeaseRepository().stringToLocalDate((String) session.getAttribute("leaseEnd")));
     leaseService.getLeaseRepository().createLease(lease);
     carService.getCarRepository().changeAvailability(carID);
-    return "create-pickup";
+    return "redirect:/medarbejder";
   }
 
 }

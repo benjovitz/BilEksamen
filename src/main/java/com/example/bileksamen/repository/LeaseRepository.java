@@ -187,9 +187,9 @@ public class LeaseRepository {
 
     //Nested Loop, der looper gennem alle biler i flåden og looper gennem ArrayListen af carID'er og frasortere de udlejede biler i perioden.
     ArrayList<Car> availableCars = fleet;
-    for (int i = availableCars.size()-1; i > 0 ; i--) {
+    for (int i = fleet.size()-1; i > 0 ; i--) {
       for (int carID:leasedCars) {
-        if (availableCars.get(i).getCarID() == carID) {
+        if (fleet.get(i).getCarID() == carID) {
           availableCars.remove(i);
         }
       }

@@ -144,4 +144,9 @@ public class PickupController {
     pickupService.getPickupRepositoy().removePickup(pickupID);
     return "redirect:/all-pickups";
   }
+  @GetMapping("pick-driver")
+  public String pickDriver(Model model){
+    model.addAttribute("drivers",driverService.getDriverRepository().getAllDrivers());
+    return "pick-driver";
+  }
 }
