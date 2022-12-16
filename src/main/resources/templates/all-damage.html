@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alle skader</title>
+  <link rel="stylesheet" href="myCSS.css">
+</head>
+<body>
+
+<table>
+  <tr>
+  <th>Bil id</th>
+  <th>Brand</th>
+  <th>Bil info</th>
+  <th>Skade ID</th>
+  <th>Skadestype</th>
+  <th>Pris på skade</th>
+  </tr>
+  <tr th:each="damage :${damages}">
+    <td th:text="${damage.carID}"></td>
+    <td th:text="${damage.brand}"></td>
+    <td th:text="${damage.carDescription}"></td>
+    <td th:text="${damage.damageID}"></td>
+    <td th:text="${damage.description}"></td>
+    <td th:text="${damage.price}"></td>
+    <td><a th:href="@{/damage-specific-car(carID=${damage.getCarID})}">Se mere info</a></td>
+  </tr>
+</table>
+
+</body>
+</html>
