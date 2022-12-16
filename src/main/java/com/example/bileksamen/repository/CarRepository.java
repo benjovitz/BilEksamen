@@ -223,6 +223,7 @@ public class CarRepository {
     }
     return list;
   }
+
   //oscar storm
   public double getTotalLeasePrice(){
     double i =0;
@@ -232,8 +233,4 @@ public class CarRepository {
     }
     return i;
   }
-
-
-
-
 }

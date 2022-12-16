@@ -26,6 +26,7 @@
         <br>
         <td th:text="'Pris pr. måned: ' + ${car.pricePerMonth}">Leasing price</td>
         <td><a th:href="@{'/update-car/' + ${car.carID}}">Update car</a></td>
+        <td><a th:href="@{'/change-availability/' + ${car.carID}}">Change availability</a></td>
         <td><a th:href="@{'/delete-car/' + ${car.carID}}">Delete car</a></td>
         <br> <br>
     </div>
@@ -42,6 +43,7 @@
         <br>
         <td th:text="'Pris pr. måned: ' + ${car.pricePerMonth}">Leasing price</td>
         <td><a th:href="@{'/update-car/' + ${car.carID}}">Update car</a></td>
+        <td><a th:href="@{'/change-availability/' + ${car.carID}}">Change availability</a></td>
         <td><a th:href="@{'/delete-car/' + ${car.carID}}">Delete car</a></td>
         <br> <br>
     </div>
