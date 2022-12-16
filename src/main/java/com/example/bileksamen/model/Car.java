@@ -19,7 +19,7 @@ public class Car {
     this.originalPrice = originalPrice;
     this.pricePerMonth = pricePerMonth;
     this.available = available;
-    this.sellValue = 10000;
+    this.sellValue = 200000;
   }
 
   public double getSellValue(){return sellValue;}
