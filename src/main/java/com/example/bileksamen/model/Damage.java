@@ -3,9 +3,11 @@ package com.example.bileksamen.model;
 public class Damage {
 //Anna
     private int damageID;
-    private int price;
+    private double price;
     private String description;
     private int carID;
+    private String brand;
+    private String carDescription;
 
     public Damage(int damageID, String description,int price, int carID) {
         this.damageID = damageID;
@@ -14,6 +16,14 @@ public class Damage {
         this.carID = carID;
     }
 
+    public Damage(int damageID, double price, String description, int carID, String brand, String carDescription) {
+        this.damageID = damageID;
+        this.price = price;
+        this.description = description;
+        this.carID = carID;
+        this.brand = brand;
+        this.carDescription = carDescription;
+    }
 
     public Damage(){}
 
@@ -28,6 +38,22 @@ public class Damage {
         this.carID=carID;
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getCarDescription() {
+        return carDescription;
+    }
+
+    public void setCarDescription(String carDescription) {
+        this.carDescription = carDescription;
+    }
+
     public int getDamageID() {
         return damageID;
     }
@@ -36,11 +62,11 @@ public class Damage {
         this.damageID = damageID;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

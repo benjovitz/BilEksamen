@@ -47,10 +47,17 @@ public class DamageController {
     //Daniel Benjovitz
     @GetMapping("/all-damage")
     public String getAllDamage(Model model){
-        ArrayList<Damage> damages = damageService.getDamageRepository().getAllDamageDone();
-        System.out.println(damages);
+        ArrayList<Damage> damages = damageService.getDamageRepository().getDamageAndCar();
+        //System.out.println(damages);
         model.addAttribute("damages",damages);
         return "all-damage";
+    }
+    @GetMapping("/damage-specific-car")
+    public String specificCar(@RequestParam int carID,Model model){
+        ArrayList<Damage> damages = damageService.getDamageRepository().specificGetDamageAndCar(carID);
+        model.addAttribute("damages",damages);
+        model.addAttribute("totalPrice",damageService.getDamageRepository().totalPrice(damages));
+        return "damage-specific-car";
     }
 
 }
