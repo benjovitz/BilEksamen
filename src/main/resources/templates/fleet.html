@@ -10,6 +10,7 @@
 <body>
 <img th:src="@{images/logo.png}" src="/static/images/logo.png">
 <br>
+<table>
 <tr th:each="car : ${fleet}">
 
     <td th:text="${car.brand}">Brand</td>
@@ -18,5 +19,8 @@
     <td><a th:href="@{add-car(id=${car.carID})}">Choose</a></td>
   </div>
 </tr>
+</table>
+<a href="medarbejder" id="back">Tilbage</a>
+
 </body>
 </html>
