@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement.dk</title>
+    <link rel="stylesheet" href="myCSS.css">
+
+</head>
+<body>
+<img th:src="@{images/logo.png}" src="/static/images/logo.png">
+<br>
+<div id="center">
+  <h1>VELKOMMEN</h1>
+  <a th:href="@{damageList}">Opret skade</a><br>
+  <a th:href="@{damage-specific-car}">Se skadesager</a><br>
+  <a href="index">Tilbage</a>
+</div>
+<img th:src="@{images/hvidbil.jpg}" src="/static/images/hvidbil.jpg" id="biler">
+
+</body>
+</html>

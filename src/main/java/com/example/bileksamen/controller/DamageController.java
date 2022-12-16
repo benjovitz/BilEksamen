@@ -23,6 +23,9 @@ public class DamageController {
         damageService = new DamageService();
     }
 
+    @GetMapping("/damage")
+    public String damage(){return "damage";}
+
     //Anna
     @GetMapping("/damage-report")
     public String damageReport(Model model, @RequestParam int id){ //request parameter som læser værdi efter ?/id fra url
