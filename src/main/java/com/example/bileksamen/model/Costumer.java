@@ -72,8 +72,7 @@ public class Costumer {
   @Override
   public String toString() {
     return
-        " First name:  " + firstName +
-        ", Last name:  " + lastName +
+        "Name:  " + firstName + " " + lastName +
         ", Email: " + email +
         ", Phone: " + phone +
         "";

@@ -18,6 +18,9 @@
     Brand
 </th>
     <th>
+        Description
+    </th>
+    <th>
         Value
     </th>
     <th>
@@ -25,6 +28,7 @@
     </th>
 <tr th:each="car : ${available_fleet}">
         <td th:text="${car.brand}">Brand</td>
+        <td th:text="${car.description}">Description</td>
         <td th:text="${car.originalPrice}">Value</td>
         <td th:text="${car.pricePerMonth}">Leasing price</td>
         <td><a th:href="@{'/new-lease/' + ${car.carID}}">Choose</a></td>

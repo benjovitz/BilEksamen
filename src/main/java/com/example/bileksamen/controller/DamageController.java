@@ -37,7 +37,7 @@ public class DamageController {
     @PostMapping("/damage-report")
     public String damageReport(Damage damage){ //værdier fra tekstfelter damageID carID
         damageService.getDamageRepository().create(damage);
-        return "damageList";
+        return "redirect:/damage";
     }
 
     //Anna
