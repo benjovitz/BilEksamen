@@ -13,7 +13,6 @@ p{
     font-family: SansSerif;
 }
 a{
-    font-size: 25px;
     font-family: SansSerif;
     color: black;
 }
@@ -87,4 +86,14 @@ form{
 #back{
     height: 30px;
     width: 60px;
+}
+#profit{
+    font-size: 25px;
+}
+span{
+    font-size: 25px;
+}
+th, text{
+    font-size: 25px;
+
 }

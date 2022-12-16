@@ -4,25 +4,35 @@
     <meta charset="UTF-8">
     <title>Bilabonnement.dk</title>
     <link rel="stylesheet" href="myCSS.css">
-
+<style>
+    {
+    font-size: 10px;
+    font-family: SansSerif;
+    color: black;
+}
+</style>
 </head>
 <body>
 <img th:src="@{images/logo.png}" src="/static/images/logo.png">
-<br>
+<br> <br> <br>
 
-<a href="medarbejder" id="back">Tilbage</a>
+<button onclick="history.back()">Tilbage</button>
 <!-- En form action, som  gør det muligt at indtaste nye oplysninger om bilen, men viser også de oprindelige. -->
 <!-- Lasse Dall Mikkelsen -->
 
 <form action="/update-car" method="post">
     <label for="brand" th:text="'Brand (' + ${car.brand} + '):' ">Brand: </label>
     <input type="text" id="brand" name="brand">
+    <br> <br>
     <label for="description" th:text="'Description (' + ${car.description} + '):'">Description:</label>
     <input type="text" id="description" name="description">
+    <br> <br>
     <label for="original_price" th:text="'Original price (' + ${car.originalPrice} + '):'">Original price:</label>
     <input type="text" id="original_price" name="original_price">
+    <br> <br>
     <label for="price_per_month" th:text="'Price pr. month (' + ${car.pricePerMonth} + '):'">Price pr. month:</label>
     <input type="text" id="price_per_month" name="price_per_month">
+    <br> <br>
     <button  type="submit">Update car</button>
 </form>
 
