@@ -12,9 +12,17 @@
 <!-- Udsrkiver først oplysninger om kunden, og derefter en liste af de biler i flåden, som ikke er udlejede. Disse er gjort klikbare, så man blot trykker på den bil, som skal lejs ud. -->
 <!-- Lasse Dall Mikkelsen -->
 <table>
-
+    <input type="button" value="Tilbage" onclick="history.back()">
 <div th:text="${costumer.toString()}">Costumer</div>
-
+<th>
+    Brand
+</th>
+    <th>
+        Value
+    </th>
+    <th>
+        Leasing price
+    </th>
 <tr th:each="car : ${available_fleet}">
         <td th:text="${car.brand}">Brand</td>
         <td th:text="${car.originalPrice}">Value</td>
@@ -22,7 +30,6 @@
         <td><a th:href="@{'/new-lease/' + ${car.carID}}">Choose</a></td>
 </tr>
 </table>
-<a href="index">Tilbage</a>
 
 </body>
 </html>
