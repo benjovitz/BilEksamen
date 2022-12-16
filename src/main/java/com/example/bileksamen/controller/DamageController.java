@@ -52,6 +52,7 @@ public class DamageController {
         model.addAttribute("damages",damages);
         return "all-damage";
     }
+    //Daniel Benjovitz
     @GetMapping("/damage-specific-car")
     public String specificCar(@RequestParam int carID,Model model){
         ArrayList<Damage> damages = damageService.getDamageRepository().specificGetDamageAndCar(carID);
